@@ -35,3 +35,20 @@ def get_book_by_bookId(conn, book_id):
         conn.rollback()
         print(f"An error occurred during book retrieval: {e}")
         return None
+
+def put_book_by_bookId(conn, book_id, updated_data):
+    book = get_book_by_bookId(conn, book_id)#retrieve book to update to set its values if they are not provided
+    author_name = updated_data["author_name"]
+    if author_name:
+        author = get_or_create_author(conn, author_name)
+        setattr(book, "author_id", author.id)
+    try:
+        for key, value in updated_data.items():
+            if key == "author_name" or not value:
+                continue
+            setattr(book, key, value)
+        conn.commit()
+        print("Book updated successfully!")
+    except Exception as e:
+        conn.rollback()
+        print(f"An error occurred during book update: {e}")
