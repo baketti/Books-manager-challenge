@@ -52,3 +52,13 @@ def put_book_by_bookId(conn, book_id, updated_data):
     except Exception as e:
         conn.rollback()
         print(f"An error occurred during book update: {e}")
+
+def delete_book_by_bookId(conn, book_id):
+    try:
+        book = conn.query(Book).filter(Book.id == book_id).first()
+        conn.delete(book)
+        conn.commit()
+        print("Book deleted successfully!")
+    except Exception as e:
+        conn.rollback()
+        print(f"An error occurred during book deletion: {e}")
