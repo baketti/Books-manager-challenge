@@ -26,3 +26,12 @@ def get_all_books(conn):
         conn.rollback()
         print(f"An error occurred during book list retrieval: {e}")
         return None
+
+def get_book_by_bookId(conn, book_id):
+    try:
+        book = conn.query(Book).filter(Book.id == book_id).first()
+        return book
+    except Exception as e:
+        conn.rollback()
+        print(f"An error occurred during book retrieval: {e}")
+        return None
