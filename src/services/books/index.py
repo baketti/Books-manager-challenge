@@ -17,3 +17,12 @@ def post_book(conn, book_data):
     except Exception as e:
         conn.rollback()
         print(f"An error occurred during book creation: {e}")
+
+def get_all_books(conn):
+    try:
+        books = conn.query(Book).all()
+        return books
+    except Exception as e:
+        conn.rollback()
+        print(f"An error occurred during book list retrieval: {e}")
+        return None
