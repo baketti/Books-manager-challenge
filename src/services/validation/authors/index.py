@@ -7,6 +7,8 @@ def validate_author_name(name: str):
         raise ValueError("Author name is required")
     if len(_name) < 3:
         raise ValueError("Author name must be at least 3 characters longs")
+    elif len(_name) > 32:
+        raise ValueError("Author name must be at most 32 characters long")
     else: return _name
 
 def validate_author_birth_date(date: str):
