@@ -1,16 +1,8 @@
 from services.authors.index import delete_author_by_authorId, get_all_authors, get_author_by_authorId, post_author, put_author_by_authorId
-from services.validation.authors.index import validate_author_name, validate_author_birth_date, validate_author_email
-from services.validation.index import get_validated_input
+from cli.inputs.authors.index import get_POST_author_input_data, get_PUT_author_input_data
 
 def post_author_from_CLI(connection):
-    name = get_validated_input("Name: ", validate_author_name, is_required=True)
-    birth_date = get_validated_input("Birth date (YYYY/MM/DD): ", validate_author_birth_date)
-    email = get_validated_input("Email: ", validate_author_email)
-    author_data = {
-        "name": name,
-        "birth_date": birth_date,
-        "email": email
-    }
+    author_data = get_POST_author_input_data()
     post_author(connection, author_data)
 
 def get_all_authors_from_CLI(connection):
@@ -40,14 +32,7 @@ def put_author_by_authorId_from_CLI(connection):
         if not author:
             print("Cannot update it, this author does not exist!\nRepeat the operation and enter an existing ID.")
             return
-        name = get_validated_input("New name: ", validate_author_name)
-        birth_date = get_validated_input("New birth date (YYYY/MM/DD): ", validate_author_birth_date)
-        email = get_validated_input("New email: ", validate_author_email)
-        updated_data = {
-            "name": name,
-            "birth_date": birth_date,
-            "email": email
-        }
+        updated_data = get_PUT_author_input_data()
         put_author_by_authorId(connection, author_id, updated_data)
     except ValueError:
         print("Invalid input, ID must be a number.")
