@@ -1,6 +1,6 @@
 def main_menu():
-    print("\n--- Gestione Biblioteca ---")
-    print("1. Gestione Libri")
-    print("2. Gestione Autori")
-    print("3. Esci")
-    return input("Seleziona un'opzione: ")
+    print("\n--- Library Management ---")
+    print("1. Book Management")
+    print("2. Author Management")
+    print("3. Exit")
+    return input("Select an option: ")
