@@ -10,7 +10,6 @@ def validate_author_name(name: str):
     else: return _name
 
 def validate_author_birth_date(date: str):
-    if not date: return None
     try:
         birth_date = datetime.strptime(date, "%Y/%m/%d")
         return birth_date
@@ -18,7 +17,6 @@ def validate_author_birth_date(date: str):
         raise ValueError("Date format must be YYYY/MM/DD")
 
 def validate_author_email(email: str):
-    if not email: return None
     try:
         validated_email = validate_email(email)
         _email = validated_email["email"]
