@@ -1,11 +1,10 @@
-def get_validated_input(prompt: str, validation_func, type=None) -> str|type:
+def get_validated_input(prompt: str, validation_func, is_required: bool=False):
     while True:
         value = input(prompt)
+        if not value and not is_required:
+            return None
         try:
             _value = validation_func(value)
-            if(type and _value): 
-                return type(_value)
-            else:
-                return _value
+            return _value
         except ValueError as e:
             print(f"Invalid input: {e}. Please try again!")

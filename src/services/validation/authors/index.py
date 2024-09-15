@@ -2,11 +2,12 @@ from datetime import datetime
 from email_validator import validate_email, EmailNotValidError
 
 def validate_author_name(name: str):
-    if not name:
+    _name = name.strip()
+    if not _name:
         raise ValueError("Author name is required")
-    if len(name.strip()) < 3:
+    if len(_name) < 3:
         raise ValueError("Author name must be at least 3 characters longs")
-    else: return name
+    else: return _name
 
 def validate_author_birth_date(date: str):
     if not date: return None

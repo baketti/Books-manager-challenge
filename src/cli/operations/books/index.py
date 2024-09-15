@@ -4,12 +4,12 @@ from services.validation.books.index import validate_title, validate_pages, vali
 from services.validation.authors.index import validate_author_name
 
 def post_book_from_CLI(connection):
-    title = get_validated_input("Title: ", validate_title)
-    author_name = get_validated_input("Author Name: ", validate_author_name)
-    pages = get_validated_input("Number of pages (optional): ", validate_pages, int)
-    price = get_validated_input("Cover price (optional): ", validate_price, float)
+    title = get_validated_input("Title: ", validate_title, is_required=True)
+    author_name = get_validated_input("Author Name: ", validate_author_name, is_required=True)
+    pages = get_validated_input("Number of pages (optional): ", validate_pages)
+    price = get_validated_input("Cover price (optional): ", validate_price)
     publisher = input("Publisher (optional): ")
-    book_data = {
+    book_data = { 
         "title": title,
         "author_name": author_name,
         "pages": pages,
@@ -43,8 +43,8 @@ def put_book_by_bookId_from_CLI(connection):
         return
     title = get_validated_input("New title: ", validate_title)
     author_name = get_validated_input("New author: ", validate_author_name)
-    pages = get_validated_input("New number of pages (optional): ", validate_pages, int)
-    price = get_validated_input("New cover price (optional): ", validate_price, float)
+    pages = get_validated_input("New number of pages (optional): ", validate_pages)
+    price = get_validated_input("New cover price (optional): ", validate_price)
     publisher = input("New publisher (optional): ")
     updated_data = {
         "title": title,

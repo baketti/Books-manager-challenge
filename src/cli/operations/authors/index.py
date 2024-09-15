@@ -3,7 +3,7 @@ from services.validation.authors.index import validate_author_name, validate_aut
 from services.validation.index import get_validated_input
 
 def post_author_from_CLI(connection):
-    name = get_validated_input("Name: ", validate_author_name)
+    name = get_validated_input("Name: ", validate_author_name, is_required=True)
     birth_date = get_validated_input("Birth date (YYYY/MM/DD): ", validate_author_birth_date)
     email = get_validated_input("Email: ", validate_author_email)
     author_data = {
