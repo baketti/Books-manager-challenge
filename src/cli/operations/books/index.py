@@ -4,10 +4,10 @@ from services.validation.books.index import validate_title, validate_pages, vali
 from services.validation.authors.index import validate_author_name
 
 def post_book_from_CLI(connection):
-    title = get_validated_input("title", "Title: ", validate_title)
-    author_name = get_validated_input("author_name", "Author Name: ", validate_author_name)
-    pages = get_validated_input("pages", "Number of pages (optional): ", validate_pages, int)
-    price = get_validated_input("price", "Cover price (optional): ", validate_price, float)
+    title = get_validated_input("Title: ", validate_title)
+    author_name = get_validated_input("Author Name: ", validate_author_name)
+    pages = get_validated_input("Number of pages (optional): ", validate_pages, int)
+    price = get_validated_input("Cover price (optional): ", validate_price, float)
     publisher = input("Publisher (optional): ")
     book_data = {
         "title": title,
@@ -16,7 +16,6 @@ def post_book_from_CLI(connection):
         "price": price,
         "publisher": publisher
     }
-    print("book_data->", book_data)
     post_book(connection, book_data)
 
 def get_all_books_from_CLI(connection):
@@ -42,10 +41,10 @@ def put_book_by_bookId_from_CLI(connection):
     if not book:
         print("Cannot update it, this book does not exist!\nRepeat the operation and enter an existing ID.")
         return
-    title = get_validated_input("title", "New title: ", validate_title)
-    author_name = get_validated_input("author_name", "New author: ", validate_author_name)
-    pages = get_validated_input("pages", "New number of pages (optional): ", validate_pages, int)
-    price = get_validated_input("price", "New cover price (optional): ", validate_price, float)
+    title = get_validated_input("New title: ", validate_title)
+    author_name = get_validated_input("New author: ", validate_author_name)
+    pages = get_validated_input("New number of pages (optional): ", validate_pages, int)
+    price = get_validated_input("New cover price (optional): ", validate_price, float)
     publisher = input("New publisher (optional): ")
     updated_data = {
         "title": title,
