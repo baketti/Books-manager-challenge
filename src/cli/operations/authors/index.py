@@ -32,6 +32,10 @@ def get_author_by_authorId_from_CLI(connection):
 
 def put_author_by_authorId_from_CLI(connection):
     author_id = int(input("Enter the ID of the author to update: "))
+    author = get_author_by_authorId(connection, author_id)
+    if not author:
+        print("Cannot update it, this author does not exist!\nRepeat the operation and enter an existing ID.")
+        return
     name = get_validated_input("New name: ", validate_author_name)
     birth_date = get_validated_input("New birth date (YYYY/MM/DD): ", validate_author_birth_date)
     email = get_validated_input("New email: ", validate_author_email)
@@ -44,4 +48,8 @@ def put_author_by_authorId_from_CLI(connection):
 
 def delete_author_by_authorId_from_CLI(connection):
     author_id = int(input("Enter the ID of the author to delete: "))
+    author = get_author_by_authorId(connection, author_id)
+    if not author:
+        print("Cannot delete it, this author does not exist!\nRepeat the operation and enter an existing ID.")
+        return
     delete_author_by_authorId(connection, author_id)
