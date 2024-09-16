@@ -15,10 +15,10 @@ theme = Theme({
 console = Console(theme=theme)
 
 def print_success(message):
-    console.print(message, style="success")
+    console.print(f"✅ {message}", style="success")
 
 def print_error(message):
-    console.print(message, style="error")
+    console.print(f"❌ {message}", style="error")
 
 def print_warning(message):
     console.print(message, style="warning")
