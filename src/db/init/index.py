@@ -18,6 +18,5 @@ def init_struct():
 
 def disable_sqlalchemy_logging():
     logging.basicConfig()
-    logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
-    logging.disable(logging.WARNING)
-    logging.disable(logging.INFO)
+    logging.getLogger('sqlalchemy').setLevel(logging.CRITICAL)
+    logging.disable(logging.CRITICAL)
