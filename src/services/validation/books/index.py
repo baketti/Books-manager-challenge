@@ -28,7 +28,7 @@ def validate_price(price: str):
         return _price
     except ValueError as e:
         raise ValueError(e)
-
+    
 def validate_publisher(publisher: str):
     if len(publisher) > 255:
         raise ValueError("Publisher must be at most 255 characters long")

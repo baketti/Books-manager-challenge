@@ -1,6 +1,6 @@
 def get_validated_input(prompt: str, validation_func, is_required: bool=False):
     while True:
-        value = input(prompt)
+        value = input(f"{prompt}: ")
         if not value and not is_required:
             return None
         try:

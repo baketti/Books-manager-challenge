@@ -1,5 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from db.init.index import init_struct
+from cli.console.index import print_success,print_error
 
 def create_session():
     engine = init_struct()
@@ -9,7 +10,7 @@ def create_session():
     try:
         Session = sessionmaker(bind=engine)
         connection = Session()
-        print("Database connection activated successfully!")
+        print_success("Database connection established successfully!")
     except Exception as e:
-        print(f"An error occurred during session creation: {e}")
+        print_error(f"An error occurred during session creation: {e}")
     return connection
