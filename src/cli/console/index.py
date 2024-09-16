@@ -28,7 +28,7 @@ def print_title(title):
     console.print(title_panel)
 
 def print_table(data,columns,title):
-    table = Table(title=title)
+    table = Table(title=title, header_style="bold magenta")
     for column in columns:
         table.add_column(column)
     for obj in data:
@@ -36,7 +36,8 @@ def print_table(data,columns,title):
         for value in obj.values():
             row.append(str(value)) 
         table.add_row(*row)
-    console.print(table)
+    table_panel = Panel(table, expand=False, border_style="bright_blue")
+    console.print(table_panel)
 
 def print_exit_message():
     exit_text = Text("Thank you for using the Library Management System!", justify="center")
