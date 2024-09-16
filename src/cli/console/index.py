@@ -42,4 +42,5 @@ def print_table(data,columns,title):
 def print_exit_message():
     exit_text = Text("Thank you for using the Library Management System!", justify="center")
     exit_panel = Panel(exit_text, expand=True, style="bold magenta", border_style="bright_blue")
+    print("\n")
     console.print(exit_panel)
