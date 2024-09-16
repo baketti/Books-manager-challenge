@@ -1,6 +1,5 @@
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
-from utils.functions.index import disable_sqlalchemy_logging
 import logging
 
 Base = declarative_base()
