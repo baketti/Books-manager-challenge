@@ -18,8 +18,6 @@ def authors_operations(connection):
             delete_author_by_authorId_from_CLI(connection)
         elif choice == '6':
             break
-        else:
-            print("Invalid choice, please try again.")
 
 def books_operations(connection):
     while True:
@@ -36,5 +34,3 @@ def books_operations(connection):
             delete_book_by_bookId_from_CLI(connection)
         elif choice == '6':
             break
-        else:
-            print("Invalid choice, please try again.")
