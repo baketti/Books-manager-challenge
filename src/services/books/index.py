@@ -1,5 +1,6 @@
 from db.models.Book.index import Book
 from services.authors.index import get_or_create_author
+from cli.console.index import print_success,print_error
 
 def post_book(conn, book_data):
     author = get_or_create_author(conn, book_data['author_name'])
@@ -13,10 +14,10 @@ def post_book(conn, book_data):
     try:
         conn.add(book)
         conn.commit()
-        print("Book added successfully!")
+        print_success("Book added successfully!")
     except Exception as e:
         conn.rollback()
-        print(f"An error occurred during book creation: {e}")
+        print_error(f"An error occurred during book creation: {e}")
 
 def get_all_books(conn):
     try:
@@ -24,7 +25,7 @@ def get_all_books(conn):
         return books
     except Exception as e:
         conn.rollback()
-        print(f"An error occurred during book list retrieval: {e}")
+        print_error(f"An error occurred during book list retrieval: {e}")
         return None
 
 def get_book_by_bookId(conn, book_id):
@@ -33,11 +34,11 @@ def get_book_by_bookId(conn, book_id):
         return book
     except Exception as e:
         conn.rollback()
-        print(f"An error occurred during book retrieval: {e}")
+        print_error(f"An error occurred during book retrieval: {e}")
         return None
 
 def put_book_by_bookId(conn, book_id, updated_data):
-    book = get_book_by_bookId(conn, book_id)#retrieve book to update to set its values if they are not provided
+    book = get_book_by_bookId(conn, book_id)
     author_name = updated_data["author_name"]
     if author_name:
         author = get_or_create_author(conn, author_name)
@@ -48,17 +49,17 @@ def put_book_by_bookId(conn, book_id, updated_data):
                 continue
             setattr(book, key, value)
         conn.commit()
-        print("Book updated successfully!")
+        print_success("Book updated successfully!")
     except Exception as e:
         conn.rollback()
-        print(f"An error occurred during book update: {e}")
+        print_error(f"An error occurred during book update: {e}")
 
 def delete_book_by_bookId(conn, book_id):
     try:
         book = conn.query(Book).filter(Book.id == book_id).first()
         conn.delete(book)
         conn.commit()
-        print("Book deleted successfully!")
+        print_success("Book deleted successfully!")
     except Exception as e:
         conn.rollback()
-        print(f"An error occurred during book deletion: {e}")
+        print_error(f"An error occurred during book deletion: {e}")
