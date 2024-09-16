@@ -24,3 +24,13 @@ class Book(Base):
     
     def __repr__(self):
         return f"<Book(title={self.title}, authorID={self.author_id}, pages={self.pages}, price={self.price}, publisher={self.publisher})>"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "author_id": self.author_id,
+            "pages": self.pages,
+            "price": self.price,
+            "publisher": self.publisher
+        }
