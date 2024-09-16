@@ -1,7 +1,5 @@
 from rich.console import Console
 from rich.theme import Theme
-from rich.prompt import Prompt, Confirm
-from rich.console import Console
 from rich.text import Text
 from rich.panel import Panel
 from rich.table import Table
@@ -15,13 +13,13 @@ theme = Theme({
 console = Console(theme=theme)
 
 def print_success(message):
-    console.print(f"\n✅ {message}", style="success\n")
+    console.print(f"\n✅ {message}\n", style="success")
 
 def print_error(message):
-    console.print(f"\n❌ {message}", style="error\n")
+    console.print(f"\n❌ {message}\n", style="error")
 
 def print_warning(message):
-    console.print(f"\n⚠️  {message}", style="warning\n")
+    console.print(f"\n⚠️  {message}\n", style="warning")
 
 def print_title(title):
     _title = " ".join(title)
