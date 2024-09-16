@@ -11,7 +11,6 @@ def authors_menu():
 
 def print_authors_menu():
     console = Console()   
-
     menu_text = Text()
     menu_text.append("1. ", style="magenta")
     menu_text.append("Add an author\n")
@@ -25,6 +24,5 @@ def print_authors_menu():
     menu_text.append("Delete an author\n")
     menu_text.append("6. ", style="magenta")
     menu_text.append("Return to main menu", style="bold magenta")
-
     menu_panel = Panel.fit(menu_text, style="bold", border_style="bright_blue")
     console.print(menu_panel)
