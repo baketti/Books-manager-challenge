@@ -5,8 +5,8 @@ from services.validation.authors.index import validate_author_name
 def get_POST_book_input_data():
     title = get_validated_input("Title (required)", validate_title, is_required=True)
     author_name = get_validated_input("Author Name (required)", validate_author_name, is_required=True)
-    pages = get_validated_input("Number of pages (optional)", validate_pages, field_type=int)
-    price = get_validated_input("Cover price (optional)", validate_price, field_type=float)
+    pages = get_validated_input("Number of pages (optional)", validate_pages)
+    price = get_validated_input("Cover price (optional)", validate_price)
     publisher = get_validated_input("Publisher (optional)", validate_publisher)
     return { 
         "title": title,
