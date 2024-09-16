@@ -1,5 +1,6 @@
 from db.models.Author.index import Author
 from cli.console.index import print_success,print_error
+from utils.functions.index import is_updated
 
 def post_author(conn, author_data):
     author = Author(
@@ -56,6 +57,8 @@ def get_all_authors(conn):
         return None
 
 def put_author_by_authorId(conn, author_id, updated_data):
+    if not is_updated(updated_data): 
+        return None
     author = get_author_by_authorId(conn, author_id)
     try:
         for key, value in updated_data.items():

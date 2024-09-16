@@ -1,6 +1,7 @@
 from db.models.Book.index import Book
 from services.authors.index import get_or_create_author
 from cli.console.index import print_success,print_error
+from utils.functions.index import is_updated
 
 def post_book(conn, book_data):
     author = get_or_create_author(conn, book_data['author_name'])
@@ -39,6 +40,8 @@ def get_book_by_bookId(conn, book_id):
         return None
 
 def put_book_by_bookId(conn, book_id, updated_data):
+    if not is_updated(updated_data): 
+        return None
     book = get_book_by_bookId(conn, book_id)
     author_name = updated_data["author_name"]
     if author_name:
