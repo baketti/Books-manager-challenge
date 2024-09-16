@@ -1,5 +1,6 @@
 from services.authors.index import delete_author_by_authorId, get_all_authors, get_author_by_authorId, post_author, put_author_by_authorId
 from cli.inputs.authors.index import get_POST_author_input_data, get_PUT_author_input_data
+from cli.console.authors.index import print_authors_data
 
 def post_author_from_CLI(connection):
     author_data = get_POST_author_input_data()
@@ -8,9 +9,7 @@ def post_author_from_CLI(connection):
 def get_all_authors_from_CLI(connection):
     print("List of all authors:")
     authors = get_all_authors(connection)
-    if authors:
-        for author in authors:
-            print(author)
+    if authors: print_authors_data(authors)
     else:
         print("No authors found.")
 
@@ -18,8 +17,7 @@ def get_author_by_authorId_from_CLI(connection):
     try:
         author_id = int(input("Enter the author ID: "))
         author = get_author_by_authorId(connection, author_id)
-        if author:
-            print(author)
+        if author: print_authors_data([author])
         else:
             print("Author not found.")
     except ValueError:
