@@ -21,7 +21,7 @@ def print_error(message):
     console.print(f"❌ {message}", style="error")
 
 def print_warning(message):
-    console.print(f"⚠️ {message}", style="warning")
+    console.print(f"⚠️  {message}", style="warning")
 
 def print_title(title):
     _title = " ".join(title)
