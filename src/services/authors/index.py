@@ -64,6 +64,7 @@ def put_author_by_authorId(conn, author_id, updated_data):
             setattr(author, key, value)
         conn.commit()
         print_success("Author updated successfully!")
+        return author
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during author update: {e}")

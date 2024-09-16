@@ -51,6 +51,7 @@ def put_book_by_bookId(conn, book_id, updated_data):
             setattr(book, key, value)
         conn.commit()
         print_success("Book updated successfully!")
+        return book
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book update: {e}")
