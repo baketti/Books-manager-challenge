@@ -14,7 +14,8 @@ def post_book(conn, book_data):
     try:
         conn.add(book)
         conn.commit()
-        print_success("Book added successfully!")
+        print_success("Book created successfully!")
+        return book
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book creation: {e}")
