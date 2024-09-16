@@ -10,7 +10,7 @@ def create_session():
     try:
         Session = sessionmaker(bind=engine)
         connection = Session()
-        print_success("Database connection activated successfully!")
+        print_success("Database connection established successfully!")
     except Exception as e:
         print_error(f"An error occurred during session creation: {e}")
     return connection
