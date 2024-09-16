@@ -5,7 +5,8 @@ from cli.console.index import print_error, print_warning
 
 def post_author_from_CLI(connection):
     author_data = get_POST_author_input_data()
-    post_author(connection, author_data)
+    new_author = post_author(connection, author_data)
+    if new_author: print_authors_data([new_author], title="New author")
 
 def get_all_authors_from_CLI(connection):
     authors = get_all_authors(connection)
@@ -29,7 +30,8 @@ def put_author_by_authorId_from_CLI(connection):
             print_warning("Cannot update it, this author does not exist!\nRepeat the operation and enter an existing ID.")
             return
         updated_data = get_PUT_author_input_data()
-        put_author_by_authorId(connection, author_id, updated_data)
+        update_book = put_author_by_authorId(connection, author_id, updated_data)
+        if update_book: print_authors_data([update_book])
     except ValueError:
         print_error("Invalid input, ID must be a number.")
 

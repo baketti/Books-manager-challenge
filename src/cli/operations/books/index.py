@@ -5,7 +5,8 @@ from cli.console.index import print_error, print_warning
 
 def post_book_from_CLI(connection):
     book_data = get_POST_book_input_data()
-    post_book(connection, book_data)
+    new_book = post_book(connection, book_data)
+    if new_book: print_books_data([new_book])
 
 def get_all_books_from_CLI(connection):
     books = get_all_books(connection)
@@ -29,7 +30,8 @@ def put_book_by_bookId_from_CLI(connection):
             print_warning("Cannot update it, this book does not exist!\nRepeat the operation and enter an existing ID.")
             return
         updated_data = get_PUT_book_input_data()
-        put_book_by_bookId(connection, book_id, updated_data)
+        updated_book = put_book_by_bookId(connection, book_id, updated_data)
+        if updated_book: print_books_data([updated_book])
     except ValueError:
         print_error("Invalid input, ID must be a number.")
 
