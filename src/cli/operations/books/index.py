@@ -1,5 +1,6 @@
 from services.books.index import get_book_by_bookId, post_book, get_all_books, put_book_by_bookId, delete_book_by_bookId
 from cli.inputs.books.index import get_POST_book_input_data, get_PUT_book_input_data
+from cli.console.books.index import print_books_data
 
 def post_book_from_CLI(connection):
     book_data = get_POST_book_input_data()
@@ -8,9 +9,7 @@ def post_book_from_CLI(connection):
 def get_all_books_from_CLI(connection):
     print("List of all books:")
     books = get_all_books(connection)
-    if books:
-        for book in books:
-            print(book)
+    if books: print_books_data(books)
     else:
         print("No books found.")
 
@@ -18,8 +17,7 @@ def get_book_by_bookId_from_CLI(connection):
     try:
         book_id = int(input("Enter the book ID: "))
         book = get_book_by_bookId(connection, book_id)
-        if book:
-            print(book)
+        if book: print_books_data([book])
         else:
             print("Book not found.")
     except ValueError:
