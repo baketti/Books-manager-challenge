@@ -10,10 +10,8 @@ def display_CLI_menu(connection):
         elif choice == '2':
             authors_operations(connection)
         elif choice == '3':
-            exit = Confirm.ask("Are you sure you want to exit the program?")
+            exit = Confirm.ask("Are you sure you want to exit the program?", default="y")
             if exit:
                 print("Exiting the program.")
                 connection.close()
                 break
-        else:
-            print("Invalid choice, please try again.")
