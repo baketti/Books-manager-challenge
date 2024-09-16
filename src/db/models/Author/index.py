@@ -19,3 +19,11 @@ class Author(Base):
     
     def __repr__(self):
         return f"<Author(name={self.name}, birth_date={self.birth_date}, email={self.email})>"
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "birth_date": self.birth_date,
+            "email": self.email
+        }
