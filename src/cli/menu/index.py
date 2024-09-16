@@ -1,5 +1,5 @@
 from cli.console.index import print_title
-from rich.prompt import Prompt, Confirm
+from rich.prompt import Prompt
 
 def main_menu():
     print_title("WELCOME TO THE LIBRARY MANAGEMENT SYSTEM")
