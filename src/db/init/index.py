@@ -1,9 +1,11 @@
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
+from utils.functions.index import disable_sqlalchemy_logging
 
 Base = declarative_base()
 
 def init_struct():
+    disable_sqlalchemy_logging()
     engine = None
     try:
         engine = create_engine('sqlite:///db/books_authors.db', echo=True)
