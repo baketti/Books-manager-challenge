@@ -1,5 +1,7 @@
+from cli.console.index import print_title
+
 def authors_menu():
-    print("\n--- Author Management ---")
+    print_title("AUTHOR MANAGEMENT")
     print("1. Add an author")
     print("2. View all authors")
     print("3. View a specific author")

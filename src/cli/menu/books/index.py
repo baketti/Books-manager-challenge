@@ -1,5 +1,7 @@
+from cli.console.index import print_title
+
 def books_menu():
-    print("\n--- Book Management ---")
+    print_title("BOOK MANAGEMENT")
     print("1. Add a book")
     print("2. View all books")
     print("3. View a specific book")
