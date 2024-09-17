@@ -8,7 +8,7 @@ class Book(Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String, nullable=False)
-    author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)
+    author_id = Column(Integer, ForeignKey('authors.id', ondelete="RESTRICT"), nullable=False)
     pages = Column(Integer)
     price = Column(Float)
     publisher = Column(String)
