@@ -1,3 +1,4 @@
+from db.models.Author.index import Author
 from db.models.Book.index import Book
 from services.authors.index import get_or_create_author
 from cli.console.index import print_success,print_error
@@ -28,6 +29,17 @@ def get_all_books(conn):
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book list retrieval: {e}")
+        return None
+
+def get_books_by_authorName(conn, author_name):
+    try:
+        author = conn.query(Author).filter(Author.name == author_name).first()
+        if not author:
+            return None
+        return author.books
+    except Exception as e:
+        conn.rollback()
+        print_error(f"An error occurred during books retrieval: {e}")
         return None
 
 def get_book_by_bookId(conn, book_id):
