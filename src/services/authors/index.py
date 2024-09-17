@@ -1,5 +1,5 @@
 from db.models.Author.index import Author
-from cli.console.index import print_success,print_error
+from cli.console.index import print_success, print_error, print_warning
 from utils.functions.index import is_updated
 
 def post_author(conn, author_data):
@@ -74,7 +74,11 @@ def put_author_by_authorId(conn, author_id, updated_data):
 
 def delete_author_by_authorId(conn, author_id):
     try:
-        author = conn.query(Author).filter(Author.id == author_id).first()
+        author = get_author_by_authorId(conn, author_id)
+        print(author.books)
+        if author.books:
+            print_warning("Cannot delete author with associated books")
+            return
         conn.delete(author)
         conn.commit()
         print_success("Author deleted successfully!")
