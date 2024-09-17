@@ -1,5 +1,5 @@
 from cli.console.index import print_table
-from utils.functions.index import convert_to_dict_list
+from utils.index import convert_to_dict_list
 
 def print_books_data(books, title="Books"):
     colums = ["ID", "Title", "Author ID", "Pages", "Price", "Publisher"]
