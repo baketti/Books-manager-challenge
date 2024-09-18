@@ -2,7 +2,7 @@ import os
 import csv
 from datetime import datetime
 from services.authors.index import post_author
-from cli.console.index import print_error
+from cli.console.index import print_error, print_success
 
 def read_authors_csv():
     try:
@@ -27,3 +27,4 @@ def create_authors(conn):
     if authors_data:
         for author_data in authors_data:
             post_author(conn, author_data)
+        print_success(f"Imported {len(authors_data)} authors from csv!\n")

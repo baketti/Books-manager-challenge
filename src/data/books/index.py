@@ -1,7 +1,7 @@
 import os
 import csv
 from services.books.index import post_book      
-from cli.console.index import print_error
+from cli.console.index import print_error, print_success
 
 def read_books_csv():
     try:
@@ -28,3 +28,4 @@ def create_books(conn):
     if books_data:
         for book_data in books_data:
             post_book(conn, book_data)
+        print_success(f"Imported {len(books_data)} books from csv!\n")
