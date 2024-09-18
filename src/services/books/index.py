@@ -3,8 +3,6 @@ from db.models.Book.index import Book
 from services.authors.index import get_or_create_author
 from cli.console.index import print_success,print_error
 from utils.index import is_updated
-from sqlalchemy import select
-from sqlalchemy.orm import Session
 
 def post_book(conn, book_data):
     author = get_or_create_author(conn, book_data['author_name'])
@@ -24,7 +22,7 @@ def post_book(conn, book_data):
         conn.rollback()
         print_error(f"An error occurred during book creation: {e}")
 
-def get_all_books(conn: Session):
+def get_all_books(conn):
     try:
         books = conn.query(Book).all()
         return books
@@ -33,7 +31,7 @@ def get_all_books(conn: Session):
         print_error(f"An error occurred during book list retrieval: {e}")
         return None
 
-def get_books_by_authorName(conn: Session, author_name):
+def get_books_by_authorName(conn, author_name):
     try:
         author = conn.query(Author).filter(Author.name == author_name).first()
         if not author:
