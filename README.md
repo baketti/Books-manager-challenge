@@ -90,7 +90,7 @@ After the data import (if applicable), you will be presented with a menu to choo
 
 Currently, the application exposes a single endpoint:
 
-- Endpoint Path: /books
+- `bash /books `
   This endpoint supports two main functionalities:
   - Retrieve All Books: If no query parameters are provided, the endpoint will return all books in the database.
   - Search Books by Author: If a query parameter for the author's name is provided, the endpoint will return books that match the provided author's name.
