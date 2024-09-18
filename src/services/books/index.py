@@ -1,6 +1,5 @@
-from db.models.Author.index import Author
 from db.models.Book.index import Book
-from services.authors.index import get_or_create_author
+from services.authors.index import get_author_by_authorName, get_or_create_author
 from cli.console.index import print_success,print_error
 from utils.index import is_updated
 
@@ -22,18 +21,18 @@ def post_book(conn, book_data):
         conn.rollback()
         print_error(f"An error occurred during book creation: {e}")
 
-def get_all_books(conn):
+def get_book_by_bookId(conn, book_id):
     try:
-        books = conn.query(Book).all()
-        return books
+        book = conn.query(Book).filter(Book.id == book_id).first()
+        return book
     except Exception as e:
         conn.rollback()
-        print_error(f"An error occurred during book list retrieval: {e}")
+        print_error(f"An error occurred during book retrieval: {e}")
         return None
 
 def get_books_by_authorName(conn, author_name):
     try:
-        author = conn.query(Author).filter(Author.name == author_name).first()
+        author = get_author_by_authorName(conn, author_name)
         if not author:
             return None
         return author.books
@@ -42,13 +41,22 @@ def get_books_by_authorName(conn, author_name):
         print_error(f"An error occurred during books retrieval: {e}")
         return None
 
-def get_book_by_bookId(conn, book_id):
+def get_books_by_title(conn, title):
     try:
-        book = conn.query(Book).filter(Book.id == book_id).first()
-        return book
+        books = conn.query(Book).filter(Book.title.contains(title)).all()
+        return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book retrieval: {e}")
+        return None
+    
+def get_all_books(conn):
+    try:
+        books = conn.query(Book).all()
+        return books
+    except Exception as e:
+        conn.rollback()
+        print_error(f"An error occurred during book list retrieval: {e}")
         return None
 
 def put_book_by_bookId(conn, book_id, updated_data):
