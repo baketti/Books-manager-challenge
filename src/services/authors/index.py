@@ -48,6 +48,14 @@ def get_author_by_authorName(conn, author_name):
         print_error(f"An error occurred during author retrieval: {e}")
         return None
 
+def get_author_by_email(conn, email):
+    try:
+        author = conn.query(Author).filter(Author.email == email).first()
+        return author
+    except Exception as e:
+        print_error(f"An error occurred while searching author by email: {e}")
+        return None 
+
 def get_all_authors(conn):
     try:
         authors = conn.query(Author).all()
