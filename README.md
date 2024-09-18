@@ -90,12 +90,12 @@ After the data import (if applicable), you will be presented with a menu to choo
 
 Currently, the application exposes a single endpoint:
 
-- `bash /books`, this endpoint supports two main functionalities:
+- `/books`, this endpoint supports two main functionalities:
   - Retrieve all books: if no query parameters are provided, the endpoint will return all books in the database.
-  - Search books by author name: if the `bash authorName` query parameter is provided, the endpoint will return books that match the specified author's name.
+  - Search books by author name: if the `authorName` query parameter is provided, the endpoint will return books that match the specified author's name.
     The query parameter to use is authorName. For example:
-    - to retrieve all books: `bash GET /books`
-    - to search for books by a specific author name: `bash GET /books?authorName=<AuthorName>`
+    - to retrieve all books: `GET /books`
+    - to search for books by a specific author name: `GET /books?authorName=<AuthorName>`
 
 The endpoint is designed to handle query string parameters, allowing you to filter results based on the author's name.
 
