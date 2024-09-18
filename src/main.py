@@ -1,7 +1,7 @@
 from cli.console.index import print_exit_message, print_API_start_app
 from db.index import create_session
 from cli.index import display_main_CLI_app_menu, display_initial_CLI_menu
-from app.main import app
+from app.index import app
 from data.index import import_data_from_csv
 from rich.prompt import Confirm
 
