@@ -1,4 +1,4 @@
-from utils.functions.index import convert_to_number
+from utils.index import convert_to_number
 
 def validate_title(title: str):
     if not title:
