@@ -1,6 +1,6 @@
 from db.models.Author.index import Author
 from cli.console.index import print_success, print_error, print_warning
-from utils.functions.index import is_updated
+from utils.index import is_updated
 
 def post_author(conn, author_data):
     author = Author(
