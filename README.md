@@ -95,7 +95,7 @@ Currently, the application exposes a single endpoint:
   - Search books by author name: if the `authorName` query parameter is provided, the endpoint will return books that match the specified author's name.
     The query parameter to use is authorName. For example:
     - to retrieve all books: `GET /books`
-    - to search for books by a specific author name: `GET /books?authorName=<AuthorName>`
+    - to search for books by a specific author name: `GET /books?authorName=<authorName>`
 
 The endpoint is designed to handle query string parameters, allowing you to filter results based on the author's name.
 
