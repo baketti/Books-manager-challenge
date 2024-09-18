@@ -46,6 +46,6 @@ def print_exit_message():
     console.print(exit_panel)
 
 def print_API_start_app():
-    print_title("WELCOME TO THE LIBRARY MANAGEMENT API SYSTEM")
+    print_title("WELCOME TO THE LIBRARY MANAGEMENT API")
     print("You can test the API with Postman or any tool of your choice.")
     print("\nLocal URL: http://127.0.0.1:5000\n")
