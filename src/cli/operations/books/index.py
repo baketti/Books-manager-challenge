@@ -27,7 +27,7 @@ def put_book_by_bookId_from_CLI(connection):
         print_warning("Cannot update it, this book does not exist!\nRepeat the operation and enter an existing ID.")
         return
     updated_data = get_PUT_book_input_data()
-    updated_book = put_book_by_bookId(connection, book_id, updated_data)
+    updated_book = put_book_by_bookId(connection, book, updated_data)
     if updated_book: print_books_data([updated_book], title="Updated book")
 
 def delete_book_by_bookId_from_CLI(connection):
