@@ -1,15 +1,16 @@
 from datetime import datetime
 from email_validator import validate_email, EmailNotValidError
+from utils.index import sanitize_string
 
-def validate_author_name(name: str):
-    _name = name.strip()
-    if not _name:
+def validate_author_name(_name: str):
+    name = sanitize_string(_name)
+    if not name:
         raise ValueError("Author name is required")
-    if len(_name) < 3:
+    if len(name) < 3:
         raise ValueError("Author name must be at least 3 characters longs")
-    elif len(_name) > 32:
+    elif len(name) > 32:
         raise ValueError("Author name must be at most 32 characters long")
-    else: return _name
+    else: return name
 
 def validate_author_birth_date(date: str):
     try:
