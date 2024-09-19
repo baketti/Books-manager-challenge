@@ -1,8 +1,12 @@
-from services.books.index import get_book_by_bookId, post_book, get_all_books, put_book_by_bookId, delete_book_by_bookId
+from services.books.index import get_book_by_bookId, get_books_by_title, get_books_by_authorName, post_book, get_all_books, put_book_by_bookId, delete_book_by_bookId
 from cli.inputs.books.index import get_POST_book_input_data, get_PUT_book_input_data
+from cli.inputs.index import get_validated_input
 from cli.console.books.index import print_books_data
 from cli.console.index import print_warning
-from rich.prompt import IntPrompt
+from rich.prompt import IntPrompt, Prompt
+from cli.menu.books.index import print_search_books_menu
+from services.validation.books.index import validate_title
+from services.validation.authors.index import validate_author_name
 
 def post_book_from_CLI(connection):
     book_data = get_POST_book_input_data()
@@ -19,6 +23,29 @@ def get_book_by_bookId_from_CLI(connection):
     book = get_book_by_bookId(connection, book_id)
     if book: print_books_data([book], title="Book")
     else: print_warning("Book not found.")
+
+def search_books_by_title_from_CLI(connection):
+    title = get_validated_input("Enter the title of the book", validate_title)
+    books = get_books_by_title(connection, title)
+    if books: print_books_data(books)
+    else: print_warning("No books found.")
+
+def search_books_by_author_from_CLI(connection):
+    author_name = get_validated_input("Enter the author name", validate_author_name)
+    books = get_books_by_authorName(connection, author_name)
+    if books: print_books_data(books)
+    else: print_warning("No books found.")
+
+def search_books_from_CLI(connection):
+    print_search_books_menu()
+    choice = Prompt.ask("Do you want to search by title or author name?", choices=["1", "2","3"])
+    if choice == '1':
+        search_books_by_title_from_CLI(connection)
+    elif choice == '2':
+        search_books_by_author_from_CLI(connection)
+    elif choice == '3':
+        return
+
 
 def put_book_by_bookId_from_CLI(connection):
     book_id = IntPrompt.ask("Enter the ID of the book to update")
