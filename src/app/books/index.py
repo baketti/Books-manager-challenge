@@ -1,41 +1,36 @@
-from flask import Blueprint, request, jsonify
-from services.books.index import get_all_books, get_books_by_authorName
+from flask import Blueprint
+from app.books.middleware.index import validate_books_request_data
 from db.models.DbConnection.index import DbConnection
-from http import HTTPStatus
+from app.books.handlers.post.index import post_books_handler
+from app.books.handlers.put.index import put_book_by_id_handler
+from app.books.handlers.get.index import get_book_by_id_handler, get_books_handler
+from app.books.handlers.delete.index import delete_book_by_id_handler
 
 db_connection = DbConnection.get_connection()
 books = Blueprint('books', __name__)
 
+@books.before_request
+def check_request_data():
+    return validate_books_request_data()
+
+@books.route('/books', methods=['POST'])
+def post_books():
+    return post_books_handler(db_connection)
+
 @books.route('/books', methods=['GET'])
 def get_books():
-    books = None
-    try:
-        query_params= request.query_string.decode()
+    print("Get books")
+    return get_books_handler(db_connection)
 
-        if not query_params: 
-            books = get_all_books(db_connection)
-        else:
-            author_name = get_authorName_query_param()
-            books = get_books_by_authorName(db_connection, author_name)
+@books.route('/books/<book_id>', methods=['GET'])
+def get_book_by_id(book_id):
+    return get_book_by_id_handler(db_connection,book_id)
 
-        if not books:
-            return (
-                jsonify({
-                    "message": "No books found"
-                }), 
-                HTTPStatus.NOT_FOUND)
-        
-        return (
-            jsonify([book.to_dict() for book in books]),
-            HTTPStatus.OK)
-    
-    except Exception as e:
-        return (
-            jsonify({
-                "message": f"An Internal Error occurred during books retrieval: {e}"
-            }),HTTPStatus.INTERNAL_SERVER_ERROR)
+# TODO
+@books.route('/books/<book_id>', methods=['PUT'])
+def put_book_by_id(book_id):
+    return put_book_by_id_handler(db_connection, book_id)
 
-def get_authorName_query_param():
-    author_name = request.args.get('authorName')
-    sanitized_author_name = ' '.join(author_name.split())
-    return sanitized_author_name
+@books.route('/books/<book_id>', methods=['DELETE'])
+def delete_book_by_id(book_id):
+    return delete_book_by_id_handler(db_connection, book_id)
