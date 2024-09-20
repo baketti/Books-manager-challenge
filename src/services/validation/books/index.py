@@ -31,8 +31,15 @@ def validate_price(price: str):
         raise ValueError(e)
     
 def validate_publisher(_publisher: str):
-    if not _publisher: return None
+    if not _publisher.strip(): return None
     publisher = sanitize_string(_publisher)
     if len(publisher) > 255:
         raise ValueError("Publisher must be at most 255 characters long")
     return publisher
+
+def validate_category(category: str):
+    if not category.strip(): return None
+    categories = ["Classic", "Drama", "Fantasy", "IT", "Thriller", "Miscellaneous"]
+    if category not in categories:
+        raise ValueError("Category must be one of the following: Classic, Drama, Fantasy, IT, Thriller, Miscellaneous")
+    return category
