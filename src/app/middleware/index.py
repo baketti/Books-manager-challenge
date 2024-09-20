@@ -3,12 +3,10 @@ from http import HTTPStatus
 from app.routes.authors.validations.index import validate_post_author_data
 from app.routes.books.validations.index import validate_post_book_data
 
-def validate_post_request_data():
-    print("middleware => ",request.path)
+def validate_post_request_body():
     if not request.path.startswith('/books') and not request.path.startswith('/authors'): 
         return 
     if request.method == 'POST' or request.method == 'PUT':
-        print("middleware => ",request.json)
         if not request.data:
             return jsonify(
                 {"message": "Request body is empty"}
