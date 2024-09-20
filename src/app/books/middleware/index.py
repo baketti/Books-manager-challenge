@@ -1,6 +1,6 @@
 from flask import request, jsonify, g
 from http import HTTPStatus
-from app.books.validations.index import validate_post_book_data, validate_put_book_data
+from app.books.validations.index import validate_post_book_data
 
 def validate_books_request_data():
     if request.path != '/books': return
