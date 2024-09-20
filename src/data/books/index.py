@@ -16,7 +16,8 @@ def read_books_csv():
                     "author_name": row[1],
                     "pages": row[2],
                     "price": row[3],
-                    "publisher": row[4]
+                    "publisher": row[4],
+                    "category": row[5]
                 })
             return data
     except FileNotFoundError as e:

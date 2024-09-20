@@ -10,7 +10,8 @@ def post_book(conn, book_data):
         author_id=author.id,
         pages=book_data["pages"],
         price=book_data["price"],
-        publisher=book_data["publisher"]
+        publisher=book_data["publisher"],
+        category=book_data["category"]
     )
     try:
         conn.add(book)
