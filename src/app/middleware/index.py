@@ -4,9 +4,11 @@ from app.routes.authors.validations.index import validate_post_author_data
 from app.routes.books.validations.index import validate_post_book_data
 
 def validate_post_request_data():
-    if request.path != '/books': return
-
-    if request.method == 'POST':
+    print("middleware => ",request.path)
+    if not request.path.startswith('/books') and not request.path.startswith('/authors'): 
+        return 
+    if request.method == 'POST' or request.method == 'PUT':
+        print("middleware => ",request.json)
         if not request.data:
             return jsonify(
                 {"message": "Request body is empty"}
