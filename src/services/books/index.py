@@ -64,21 +64,11 @@ def get_all_books(conn):
 def put_book_by_bookId(conn, book, updated_data):
     if not is_updated(updated_data): 
         return None
-    print("put_book_by_bookId->", book)
-    print("book->", book)
-    print("updated_data->", updated_data)
-    author_name = updated_data.get("author_name", None)
-    if author_name:
-        author = get_or_create_author(conn, author_name)
-        setattr(book, "author_id", author.id)
     try:
         for key, value in updated_data.items():
-            if key == "author_name" or not value:
+            if not value:
                 continue
-            print("key->", key)
-            print("value->", value)
             setattr(book, key, value)
-            print("value->", value)
         conn.commit()
         print_success("Book updated successfully!")
         return book
