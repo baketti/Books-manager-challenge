@@ -1,5 +1,5 @@
 from flask import Blueprint
-from app.middleware.index import validate_post_request_data
+from app.middleware.index import validate_post_request_body
 from db.models.DbConnection.index import DbConnection
 from app.routes.books.handlers.post.index import post_books_handler
 from app.routes.books.handlers.put.index import put_book_by_id_handler
@@ -11,7 +11,7 @@ books = Blueprint('books', __name__)
 
 @books.before_request
 def check_request_data():
-    return validate_post_request_data()
+    return validate_post_request_body()
 
 @books.route('/books', methods=['POST'])
 def post_books():

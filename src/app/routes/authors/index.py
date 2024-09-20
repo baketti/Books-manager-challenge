@@ -5,14 +5,14 @@ from app.routes.authors.handlers.post.index import post_authors_handler
 from app.routes.authors.handlers.get.index import get_authors_handler, get_author_by_id_handler
 from app.routes.authors.handlers.put.index import put_author_by_id_handler
 from app.routes.authors.handlers.delete.index import delete_author_by_id_handler
-from app.middleware.index import validate_post_request_data
+from app.middleware.index import validate_post_request_body
 
 db_connection = DbConnection.get_connection()
 authors = Blueprint('authors', __name__)
 
 @authors.before_request
 def check_request_data():
-    return validate_post_request_data()
+    return validate_post_request_body()
 
 @authors.route('/authors', methods=['POST'])
 def post_author():
