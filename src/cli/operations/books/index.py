@@ -46,7 +46,6 @@ def search_books_from_CLI(connection):
     elif choice == '3':
         return
 
-
 def put_book_by_bookId_from_CLI(connection):
     book_id = IntPrompt.ask("Enter the ID of the book to update")
     book = get_book_by_bookId(connection, book_id)
