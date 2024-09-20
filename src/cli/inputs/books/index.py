@@ -20,14 +20,12 @@ def get_POST_book_input_data():
 
 def get_PUT_book_input_data():
     title = get_validated_input("New title", validate_title)
-    author_name = get_validated_input("New author", validate_author_name)
     pages = get_validated_input("New number of pages", validate_pages)
     price = get_validated_input("New cover price", validate_price)
     publisher = get_validated_input("New publisher", validate_publisher)
     category = get_validated_input("New category", validate_category)
     return {
         "title": title,
-        "author_name": author_name,
         "pages": pages,
         "price": price,
         "publisher": publisher,
