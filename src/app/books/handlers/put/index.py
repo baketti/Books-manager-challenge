@@ -11,8 +11,7 @@ def put_book_by_id_handler(conn, book_id):
             ), HTTPStatus.NOT_FOUND
     try:
         book_to_update = book.to_dict()
-        book_data = request.json
-        validated_data = validate_put_book_data(book_to_update, book_data)
+        validated_data = validate_put_book_data(book_to_update, request.json)
         updated_book = put_book_by_bookId(conn, book, validated_data)
         return jsonify(
             {
