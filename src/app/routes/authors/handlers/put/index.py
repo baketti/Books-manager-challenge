@@ -14,7 +14,7 @@ def put_author_by_id_handler(conn, author_id):
         
         author_to_update = author.to_dict()
         validated_data = validate_put_author_data(author_to_update, request.json)
-        updated_author = put_author_by_authorId(conn, author, validated_data)
+        updated_author = put_author_by_authorId(conn, id, validated_data)
         return jsonify(
             {
                 "message": "Author updated successfully",
