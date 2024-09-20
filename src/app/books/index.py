@@ -26,7 +26,6 @@ def get_books():
 def get_book_by_id(book_id):
     return get_book_by_id_handler(db_connection,book_id)
 
-# TODO
 @books.route('/books/<book_id>', methods=['PUT'])
 def put_book_by_id(book_id):
     return put_book_by_id_handler(db_connection, book_id)
