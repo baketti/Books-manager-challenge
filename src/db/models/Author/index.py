@@ -6,7 +6,7 @@ class Author(Base):
     __tablename__ = 'authors'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
+    name = Column(String, unique=True, nullable=False)
     birth_date = Column(Date, nullable=True)
     email = Column(String, unique=True, nullable=True)
     
