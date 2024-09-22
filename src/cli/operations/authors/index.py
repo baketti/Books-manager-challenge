@@ -1,6 +1,5 @@
 from cli.inputs.index import get_validated_input
-from cli.menu.authors.index import print_search_authors_menu
-from services.authors.index import delete_author_by_authorId, get_all_authors, get_author_by_authorId, get_author_by_authorName, post_author, put_author_by_authorId
+from services.authors.index import delete_author_by_authorId, get_all_authors, get_author_by_authorId, get_authors_by_authorName, post_author, put_author_by_authorId
 from cli.inputs.authors.index import get_POST_author_input_data, get_PUT_author_input_data
 from cli.console.authors.index import print_authors_data
 from cli.console.index import print_warning
@@ -23,18 +22,14 @@ def get_author_by_authorId_from_CLI():
     if author: print_authors_data([author], title="Author")
     else: print_warning("Author not found.")
 
-def search_author_by_name_from_CLI():
-    author_name = get_validated_input("Enter the author name", validate_author_name)
-    author = get_author_by_authorName(author_name)
-    if author: print_authors_data([author], title="Author found")
-    else: print_warning("No authors found.")
-
-def search_author_from_CLI():
-    print_search_authors_menu()
-    search = Confirm.ask("Do you want to search by author name or not?", default=True)
+def search_authors_by_name_from_CLI():
+    search = Confirm.ask("Do you want to search by author name?", default=True)
     if not search: 
         return
-    search_author_by_name_from_CLI()
+    author_name = get_validated_input("Enter the author name", validate_author_name)
+    authors = get_authors_by_authorName(author_name, is_search=True)
+    if len(authors): print_authors_data(authors, title="Authors found")
+    else: print_warning("No authors found.")
 
 def put_author_by_authorId_from_CLI():
     author_id = IntPrompt.ask("Enter the ID of the author to update")
