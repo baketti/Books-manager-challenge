@@ -1,6 +1,7 @@
 from flask import jsonify
 from services.authors.index import get_all_authors, get_author_by_authorId
 from http import HTTPStatus
+from app.utils.index import get_limit_query_param
 
 def get_author_by_id_handler(book_id):
     try:
@@ -24,7 +25,8 @@ def get_author_by_id_handler(book_id):
 # TODO implement search by email (?)
 def get_authors_handler():
     try: 
-        authors = get_all_authors()
+        limit = get_limit_query_param()
+        authors = get_all_authors(limit)
         if not authors:
             return (
                 jsonify({
