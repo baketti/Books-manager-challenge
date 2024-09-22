@@ -40,7 +40,7 @@ cd books-management-challenge
 - Install dependencies:
 
 ```bash
-pip install sqlalchemy email_validator flask rich
+pip install -r requirements.txt
 ```
 
 - Run the application: Navigate to the src directory and execute the main application file:
@@ -66,9 +66,11 @@ The project is structured as follows:
 - db/: Manages everything related to the SQLite database, including functions for creating the database and tables, defining table models, and implementing a singleton pattern for managing a single database connection.
 
 - services/: This directory houses all application services, which interact with the database. Services include:
+
   - Books Service: Handles book-related operations.
   - Authors Service: Manages author-related operations.
   - Validation Service: Provides input validation functionalities.
+
 - app/: Contains the API logic, enabling the application to serve a local API for testing the endpoints.
 
 - main.py: The main entry point for executing the CLI application.
@@ -88,16 +90,45 @@ After the data import (if applicable), you will be presented with a menu to choo
 
 ## API Structure
 
-Currently, the application exposes a single endpoint:
+The application exposes two main groups of endpoints: books and authors.
 
-- `/books`, this endpoint supports two main functionalities:
-  - Retrieve all books: if no query parameters are provided, the endpoint will return all books in the database.
-  - Search books by author name: if the `authorName` query parameter is provided, the endpoint will return books that match the specified author's name.
-    The query parameter to use is authorName. For example:
-    - to retrieve all books: `GET /books`
-    - to search for books by a specific author name: `GET /books?authorName=<authorName>`
+### Books Endpoints
 
-The endpoint is designed to handle query string parameters, allowing you to filter results based on the author's name.
+`/books`: Supports the following functionalities:
+
+- POST `/books`: Allows you to add a new book to the database.
+- GET `/books`: If no query parameters are provided, it returns all books in the database. You can also specify a limit query parameter to return only a specified number of books from the entire collection. Additionally, you can search for books by the author's name using the authorName query parameter.
+  Example:
+
+  - To retrieve all books: GET `/books`.
+  - To retrieve a limited number of books: GET `/books?limit=<number>`.
+  - To search for books by a specific author: GET `/books?authorName=<authorName>`
+    The endpoint is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
+
+- GET `/books/<book_id>`: Returns the details of a specific book based on its book_id.
+- PUT `/books/<book_id>`: Updates a specific book identified by its book_id.
+- DELETE `/books/<book_id>`: Deletes a specific book identified by its book_id.
+
+### Authors Endpoints
+
+`/authors`: Supports the following functionalities:
+
+- POST `/authors`: Allows you to add a new author to the database.
+- GET `/authors`: Returns all authors in the database.
+- GET `/authors/<author_id>`: Returns the details of a specific author based on their author_id.
+- PUT `/authors/<author_id>`: Updates the information of a specific author identified by their author_id.
+- DELETE `/authors/<author_id>`: Deletes a specific author identified by their author_id.
+
+### Middleware
+
+The application uses a middleware function that intercepts POST and PUT requests targeting the `/books` and `/authors` endpoints.
+This middleware performs the following checks and actions:
+
+- Request Body Validation: It ensures that the request body is present and in JSON format. If the body is missing, empty, or not in JSON format, the middleware returns an appropriate error message with a 400 Bad Request status.
+- Data Validation: For POST requests to `/books` and `/authors`, it validates the provided data using dedicated validation functions. If the data is invalid, an error message is returned.
+- Global Variable Storage: After validation, the validated data is stored in Flask's g object, making it accessible in the respective request handlers for further processing.
+
+This middleware ensures that the data sent in requests is properly structured and valid before it reaches the core logic of the application.
 
 ## Contributing
 
@@ -111,3 +142,5 @@ Contributions are welcome! To contribute to this project:
 ## Testing
 
 While no automated testing suite is currently implemented, manual testing can be performed by running the application, testing CRUD operations, and interacting with the API.
+
+###### Thanks for reading!
