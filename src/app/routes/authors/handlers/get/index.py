@@ -2,10 +2,10 @@ from flask import jsonify
 from services.authors.index import get_all_authors, get_author_by_authorId
 from http import HTTPStatus
 
-def get_author_by_id_handler(conn,book_id):
+def get_author_by_id_handler(book_id):
     try:
         id = int(book_id)
-        author = get_author_by_authorId(conn,id)
+        author = get_author_by_authorId(id)
         if not author:
             return (
                 jsonify({
@@ -22,9 +22,9 @@ def get_author_by_id_handler(conn,book_id):
         }), HTTPStatus.BAD_REQUEST
 
 # TODO implement search by email (?)
-def get_authors_handler(conn):
+def get_authors_handler():
     try: 
-        authors = get_all_authors(conn)
+        authors = get_all_authors()
         if not authors:
             return (
                 jsonify({
@@ -32,8 +32,9 @@ def get_authors_handler(conn):
                 }), 
                 HTTPStatus.NOT_FOUND)
         return (
-            jsonify([author.to_dict() for author in authors]),
-            HTTPStatus.OK)
+            jsonify({
+                "authors":[author.to_dict() for author in authors]
+            }), HTTPStatus.OK)
     
     except Exception as e:
         return (
