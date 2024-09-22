@@ -1,10 +1,10 @@
-from services.books.index import get_book_by_bookId, get_books_by_title, get_books_by_authorName, post_book, get_all_books, put_book_by_bookId, delete_book_by_bookId
-from cli.inputs.books.index import get_POST_book_input_data, get_PUT_book_input_data
+from services.books.index import get_book_by_bookId, get_books_by_category, get_books_by_title, get_books_by_authorName, post_book, get_all_books, put_book_by_bookId, delete_book_by_bookId
+from cli.inputs.books.index import get_POST_book_input_data, get_PUT_book_input_data, get_book_category
 from cli.inputs.index import get_validated_input
 from cli.console.books.index import print_books_data
 from cli.console.index import print_warning
-from rich.prompt import IntPrompt, Prompt
-from cli.menu.books.index import print_search_books_menu
+from rich.prompt import IntPrompt
+from cli.menu.books.index import search_books_menu
 from services.validation.books.index import validate_title
 from services.validation.authors.index import validate_author_name
 
@@ -36,14 +36,21 @@ def search_books_by_author_from_CLI():
     if books: print_books_data(books)
     else: print_warning("No books found.")
 
+def search_books_by_category_from_CLI():
+    category = get_book_category()
+    books = get_books_by_category(category)
+    if books: print_books_data(books)
+    else: print_warning("No books found.")
+
 def search_books_from_CLI():
-    print_search_books_menu()
-    choice = Prompt.ask("Do you want to search by title or author name?", choices=["1", "2","3"])
+    choice = search_books_menu()
     if choice == '1':
         search_books_by_title_from_CLI()
     elif choice == '2':
         search_books_by_author_from_CLI()
     elif choice == '3':
+        search_books_by_category_from_CLI()
+    elif choice == '4':
         return
 
 def put_book_by_bookId_from_CLI():
