@@ -1,5 +1,5 @@
 def convert_to_number(value,field_name,field_type):
-    if not value.strip():
+    if not value or not value.strip():
         return None 
     try:
         return field_type(value)
