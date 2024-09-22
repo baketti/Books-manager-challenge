@@ -13,5 +13,5 @@ def is_updated(updated_data):
     return any(updated_data[key] != None for key in updated_data.keys())
 
 def sanitize_string(value):
-    if(not value): return None
+    if not value: return ''
     return ' '.join(value.split())
