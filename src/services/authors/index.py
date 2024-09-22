@@ -16,6 +16,9 @@ def post_author(author_data):
         print_success("Author created successfully!")
         return author
     except Exception as e:
+        if str(e).startswith("(sqlite3.IntegrityError) UNIQUE constraint failed: authors.name"):
+            print_error(f"Author with name '{author_data['name']}' already exists!")
+            raise Exception(f"Author with name '{author_data['name']}' already exists!")
         conn.rollback()
         print_error(f"An error occurred during author creation: {e}")
         raise Exception(e)
