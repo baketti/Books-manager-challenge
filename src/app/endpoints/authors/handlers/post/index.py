@@ -4,14 +4,12 @@ from services.authors.index import post_author
 
 def post_authors_handler():
     try:
-        if g.validated_post_author_data:# controlla perche dovrebbe non essere necessario questo if
-            author_data = g.validated_post_author_data
-            print(author_data)    
-            book = post_author(author_data)
-            return (
-                jsonify(
-                    {"author":book.to_dict()
-                }), HTTPStatus.CREATED)
+        author_data = g.validated_post_author_data
+        author = post_author(author_data)
+        return (
+            jsonify({
+                "author":author.to_dict()
+            }), HTTPStatus.CREATED)
     except Exception as e:
         return (
             jsonify({

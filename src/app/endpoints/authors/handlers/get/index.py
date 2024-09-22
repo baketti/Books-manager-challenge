@@ -12,10 +12,10 @@ def get_author_by_id_handler(book_id):
                     "message": "No author found"
                 }), 
                 HTTPStatus.NOT_FOUND)
-        return (
-            jsonify(author.to_dict()),
-            HTTPStatus.OK
-        )
+        return (jsonify({
+            "author": author.to_dict()
+        }), HTTPStatus.OK)
+    
     except Exception as e:
         return jsonify({
             "message": "Invalid author ID"

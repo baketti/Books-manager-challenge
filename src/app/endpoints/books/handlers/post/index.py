@@ -4,13 +4,11 @@ from http import HTTPStatus
 
 def post_books_handler():
     try:
-        if g.validated_post_book_data:# controlla perche dovrebbe non essere necessario questo if
-            book_data = g.validated_post_book_data
-            print(book_data)    
-            book = post_book(book_data)
-            return (jsonify({
-                "book":book.to_dict()
-            }), HTTPStatus.CREATED)
+        book_data = g.validated_post_book_data
+        book = post_book(book_data)
+        return (jsonify({
+            "book": book.to_dict()
+        }), HTTPStatus.CREATED)
     except Exception as e:
         return (
             jsonify({
