@@ -22,6 +22,9 @@ def post_book(book_data):
         print_success("Book created successfully!")
         return book
     except Exception as e:
+        if str(e).startswith("(sqlite3.IntegrityError) UNIQUE constraint failed: books.title"):
+            print_error(f"Book with title '{book_data['title']}' already exists!")
+            raise Exception(f"Book with title '{book_data['title']}' already exists!")
         conn.rollback()
         print_error(f"An error occurred during book creation: {e}")
         raise Exception(e)
@@ -30,11 +33,12 @@ def get_book_by_bookId(book_id):
     conn = DbConnection.get_connection()
     try:
         book = conn.query(Book).filter(Book.id == book_id).first()
+        if not book: return None
         return book
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book retrieval: {e}")
-        return None
+        raise Exception(e)        
 
 def get_books_by_authorName(author_name):
     conn = DbConnection.get_connection()
@@ -46,47 +50,51 @@ def get_books_by_authorName(author_name):
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during books retrieval: {e}")
-        return None
+        raise Exception(e)
     
 def get_books_by_authorId(author_id):
     conn = DbConnection.get_connection()
     try:
         books = conn.query(Book).filter(Book.author_id == author_id).all()
+        if not books: return None
         return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during books retrieval: {e}")
-        return None
+        raise Exception(e)
 
 def get_books_by_title(title):
     conn = DbConnection.get_connection()
     try:
         books = conn.query(Book).filter(Book.title.contains(title)).all()
+        if not books: return None
         return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book retrieval: {e}")
-        return None
+        raise Exception(e)
 
 def get_books_by_category(category):
     conn = DbConnection.get_connection()
     try:
         books = conn.query(Book).filter(Book.category == category).all()
+        if not books: return None
         return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book retrieval: {e}")
-        return None
+        raise Exception(e)
 
 def get_all_books(limit=None):
     conn = DbConnection.get_connection()
     try:
         books = conn.query(Book).limit(limit).all()
+        if not books: return None
         return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book list retrieval: {e}")
-        return None
+        raise Exception(e)
 
 def put_book_by_bookId(book, updated_data):
     if not is_updated(updated_data): 
@@ -103,6 +111,7 @@ def put_book_by_bookId(book, updated_data):
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book update: {e}")
+        raise Exception(e)
 
 def delete_book_by_bookId(book_id):
     conn = DbConnection.get_connection()
@@ -114,3 +123,4 @@ def delete_book_by_bookId(book_id):
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book deletion: {e}")
+        raise Exception(e)
