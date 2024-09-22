@@ -7,7 +7,7 @@ def validate_author_name(_name: str):
     if not name:
         raise ValueError("Author name is required")
     if len(name) < 3:
-        raise ValueError("Author name must be at least 3 characters longs")
+        raise ValueError("Author name must be at least 3 characters long")
     elif len(name) > 32:
         raise ValueError("Author name must be at most 32 characters long")
     else: return name
@@ -19,7 +19,6 @@ def validate_author_birth_date(birth_date: str|date):
     elif isinstance(birth_date, date):
         #works only for apis
         return birth_date
-
     try:
         birth_date = datetime.strptime(birth_date, "%Y/%m/%d")
         return birth_date
