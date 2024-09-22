@@ -1,8 +1,10 @@
 from db.models.Author.index import Author
 from cli.console.index import print_success, print_error, print_warning
+from db.models.DbConnection.index import DbConnection
 from utils.index import is_updated
 
-def post_author(conn, author_data):
+def post_author(author_data):
+    conn = DbConnection.get_connection()
     author = Author(
         name=author_data["name"],
         birth_date=author_data["birth_date"],
@@ -14,14 +16,15 @@ def post_author(conn, author_data):
         print_success("Author created successfully!")
         return author
     except Exception as e:
-        conn.rollback()
+        conn.roll
         print_error(f"An error occurred during author creation: {e}")
 
-def get_or_create_author(conn, author_name):
+def get_or_create_author(author_name):
     try:
-        author = get_author_by_authorName(conn, author_name)
+        author = get_author_by_authorName(author_name)
+        conn = DbConnection.get_connection()
         if not author:
-            return post_author(conn, {
+            return post_author({
                 "name": author_name,
                 "birth_date": None,
                 "email": None
@@ -32,7 +35,8 @@ def get_or_create_author(conn, author_name):
         print_error(f"An error occurred while getting or creating author: {e}")
         return None
 
-def get_author_by_authorId(conn, author_id):
+def get_author_by_authorId(author_id):
+    conn = DbConnection.get_connection()
     try:
         author = conn.query(Author).filter(Author.id == author_id).first()
         return author
@@ -40,7 +44,8 @@ def get_author_by_authorId(conn, author_id):
         print_error(f"An error occurred during author retrieval: {e}")
         return None
 
-def get_author_by_authorName(conn, author_name):
+def get_author_by_authorName(author_name):
+    conn = DbConnection.get_connection()
     try:
         author = conn.query(Author).filter(Author.name == author_name).first()
         return author
@@ -48,7 +53,8 @@ def get_author_by_authorName(conn, author_name):
         print_error(f"An error occurred during author retrieval: {e}")
         return None
 
-def get_author_by_email(conn, email):
+def get_author_by_email(email):
+    conn = DbConnection.get_connection()
     try:
         author = conn.query(Author).filter(Author.email == email).first()
         return author
@@ -56,7 +62,8 @@ def get_author_by_email(conn, email):
         print_error(f"An error occurred while searching author by email: {e}")
         return None 
 
-def get_all_authors(conn):
+def get_all_authors():
+    conn = DbConnection.get_connection()
     try:
         authors = conn.query(Author).all()
         return authors
@@ -64,10 +71,11 @@ def get_all_authors(conn):
         print_error(f"An error occurred during authors retrieval: {e}")
         return None
 
-def put_author_by_authorId(conn, author_id, updated_data):
+def put_author_by_authorId(author_id, updated_data):
     if not is_updated(updated_data): 
         return None
-    author = get_author_by_authorId(conn, author_id)
+    author = get_author_by_authorId(author_id)
+    conn = DbConnection.get_connection()
     try:
         for key, value in updated_data.items():
             if not value:
@@ -80,10 +88,11 @@ def put_author_by_authorId(conn, author_id, updated_data):
         conn.rollback()
         print_error(f"An error occurred during author update: {e}")
 
-def delete_author_by_authorId(conn, author_id):
+def delete_author_by_authorId(author_id):
     try:
-        author = get_author_by_authorId(conn, author_id)
+        author = get_author_by_authorId(author_id)
         print(author.books)
+        conn = DbConnection.get_connection()
         if author.books:
             print_warning("Cannot delete author with associated books")
             return

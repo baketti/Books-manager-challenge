@@ -9,6 +9,7 @@ class DbConnection:
     def __new__(cls):
         if not cls._instance:
             cls._instance = super(DbConnection, cls).__new__(cls)
+            cls._initialize_connection()
         return cls._instance
     
     @classmethod
@@ -25,6 +26,4 @@ class DbConnection:
 
     @classmethod
     def get_connection(cls):
-        if not cls._connection:
-            cls._initialize_connection()
         return cls._connection

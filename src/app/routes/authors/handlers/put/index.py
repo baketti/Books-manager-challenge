@@ -3,10 +3,10 @@ from flask import jsonify, request
 from app.routes.authors.validations.index import validate_put_author_data
 from services.authors.index import get_author_by_authorId, put_author_by_authorId
 
-def put_author_by_id_handler(conn, author_id):
+def put_author_by_id_handler(author_id):
     try:
         id = int(author_id)
-        author = get_author_by_authorId(conn, id)
+        author = get_author_by_authorId(id)
         if not author:
             return jsonify(
                 {"message": "Author not found"}
@@ -14,21 +14,21 @@ def put_author_by_id_handler(conn, author_id):
         
         author_to_update = author.to_dict()
         validated_data = validate_put_author_data(author_to_update, request.json)
-        updated_author = put_author_by_authorId(conn, id, validated_data)
+        updated_author = put_author_by_authorId(id, validated_data)
         return jsonify(
             {
-                "message": "Author updated successfully",
-                "author": updated_author.to_dict()
+                "author": updated_author.to_dict(),
+                "message": "Author updated successfully"
             }), HTTPStatus.OK
     
-    except ValueError as ve:
-        if str(ve).startswith("invalid literal for int()"):
+    except ValueError as e:
+        if str(e).startswith("invalid literal for int()"):
             return jsonify(
                 {"message": "Invalid author ID"}
             ), HTTPStatus.BAD_REQUEST
         else:
             return jsonify(
-                {"message": f"Validation error: {ve}"}
+                {"message": f"Validation error: {e}"}
             ), HTTPStatus.BAD_REQUEST
         
     except Exception as e:

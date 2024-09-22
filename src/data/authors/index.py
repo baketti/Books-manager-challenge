@@ -22,9 +22,9 @@ def read_authors_csv():
         print_error(f"Error during csv file reading: {e}")
         return None
     
-def create_authors(conn):
+def create_authors():
     authors_data = read_authors_csv()
     if authors_data:
         for author_data in authors_data:
-            post_author(conn, author_data)
+            post_author(author_data)
         print_success(f"Imported {len(authors_data)} authors from csv!\n")

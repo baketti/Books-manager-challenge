@@ -2,17 +2,17 @@ from flask import request, jsonify
 from services.authors.index import get_author_by_authorId, delete_author_by_authorId
 from http import HTTPStatus
 
-def delete_author_by_id_handler(conn, author_id):
+def delete_author_by_id_handler(author_id):
     try:
         id = int(author_id)
-        author = get_author_by_authorId(conn, id)
+        author = get_author_by_authorId(id)
         if not author:
             return (
                 jsonify({
                     "message": "No author found"
                 }),
                 HTTPStatus.NOT_FOUND)
-        delete_author_by_authorId(conn, id)
+        delete_author_by_authorId(id)
         return (
             jsonify({
                 "message": "Author deleted successfully"

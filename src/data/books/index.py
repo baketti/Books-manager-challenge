@@ -24,9 +24,9 @@ def read_books_csv():
         print_error(f"Error during books csv file reading: {e}")
         return None
 
-def create_books(conn):
+def create_books():
     books_data = read_books_csv()
     if books_data:
         for book_data in books_data:
-            post_book(conn, book_data)
+            post_book(book_data)
         print_success(f"Imported {len(books_data)} books from csv!\n")

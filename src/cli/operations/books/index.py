@@ -8,58 +8,58 @@ from cli.menu.books.index import print_search_books_menu
 from services.validation.books.index import validate_title
 from services.validation.authors.index import validate_author_name
 
-def post_book_from_CLI(connection):
+def post_book_from_CLI():
     book_data = get_POST_book_input_data()
-    new_book = post_book(connection, book_data)
+    new_book = post_book(book_data)
     if new_book: print_books_data([new_book], title="New book")
 
-def get_all_books_from_CLI(connection):
-    books = get_all_books(connection)
+def get_all_books_from_CLI():
+    books = get_all_books()
     if books: print_books_data(books)
     else: print_warning("No books found.")
 
-def get_book_by_bookId_from_CLI(connection):
+def get_book_by_bookId_from_CLI():
     book_id = IntPrompt.ask("Enter the book ID")
-    book = get_book_by_bookId(connection, book_id)
+    book = get_book_by_bookId(book_id)
     if book: print_books_data([book], title="Book")
     else: print_warning("Book not found.")
 
-def search_books_by_title_from_CLI(connection):
+def search_books_by_title_from_CLI():
     title = get_validated_input("Enter the title of the book", validate_title)
-    books = get_books_by_title(connection, title)
+    books = get_books_by_title(title)
     if books: print_books_data(books)
     else: print_warning("No books found.")
 
-def search_books_by_author_from_CLI(connection):
+def search_books_by_author_from_CLI():
     author_name = get_validated_input("Enter the author name", validate_author_name)
-    books = get_books_by_authorName(connection, author_name)
+    books = get_books_by_authorName(author_name)
     if books: print_books_data(books)
     else: print_warning("No books found.")
 
-def search_books_from_CLI(connection):
+def search_books_from_CLI():
     print_search_books_menu()
     choice = Prompt.ask("Do you want to search by title or author name?", choices=["1", "2","3"])
     if choice == '1':
-        search_books_by_title_from_CLI(connection)
+        search_books_by_title_from_CLI()
     elif choice == '2':
-        search_books_by_author_from_CLI(connection)
+        search_books_by_author_from_CLI()
     elif choice == '3':
         return
 
-def put_book_by_bookId_from_CLI(connection):
+def put_book_by_bookId_from_CLI():
     book_id = IntPrompt.ask("Enter the ID of the book to update")
-    book = get_book_by_bookId(connection, book_id)
+    book = get_book_by_bookId(book_id)
     if not book:
         print_warning("Cannot update it, this book does not exist!\nRepeat the operation and enter an existing ID.")
         return
     updated_data = get_PUT_book_input_data()
-    updated_book = put_book_by_bookId(connection, book, updated_data)
+    updated_book = put_book_by_bookId(book, updated_data)
     if updated_book: print_books_data([updated_book], title="Updated book")
 
-def delete_book_by_bookId_from_CLI(connection):
+def delete_book_by_bookId_from_CLI():
     book_id = IntPrompt.ask("Enter the ID of the book to delete")
-    book = get_book_by_bookId(connection, book_id)
+    book = get_book_by_bookId(book_id)
     if not book:
         print_warning("Cannot delete it, this book does not exist!\nRepeat the operation and enter an existing ID.")
         return
-    delete_book_by_bookId(connection, book_id)
+    delete_book_by_bookId(book_id)
