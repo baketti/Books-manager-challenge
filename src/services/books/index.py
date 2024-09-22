@@ -7,7 +7,6 @@ from utils.index import is_updated
 def post_book(book_data):
     conn = DbConnection.get_connection()
     author = get_or_create_author(book_data['author_name'])
-    print(author.to_dict())
     book = Book(
         title=book_data["title"],
         author_id=author.id,
