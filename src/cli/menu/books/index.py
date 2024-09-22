@@ -1,42 +1,26 @@
 from cli.console.index import print_title
-from rich.prompt import Prompt
-from rich.console import Console
-from rich.panel import Panel
-from rich.text import Text
+from cli.menu.index import prompt_list_choice
 
 def books_menu():
-    print_title("BOOK MANAGEMENT")
-    print_books_menu()
-    return Prompt.ask("Select an option", choices=["1", "2", "3", "4", "5", "6", "7"])
+    print_title("BOOKS MANAGEMENT")
+    message = "Select an option"
+    choices = [
+        {"name": "Add a book", "value": "1"}, 
+        {"name": "View all books", "value": "2"}, 
+        {"name": "View a specific book", "value": "3"}, 
+        {"name": "Search books", "value": "4"}, 
+        {"name": "Update a book", "value": "5"}, 
+        {"name": "Delete a book", "value": "6"}, 
+        {"name": "Return to main menu", "value": "7"},
+    ]
+    return prompt_list_choice(choices, message)
 
-def print_books_menu():
-    console = Console()
-    menu_text = Text()
-    menu_text.append("1. ",style="magenta")
-    menu_text.append("Add a book\n")
-    menu_text.append("2. ",style="magenta")
-    menu_text.append("View all books\n")
-    menu_text.append("3. ",style="magenta")
-    menu_text.append("View a specific book\n")
-    menu_text.append("4. ",style="magenta")
-    menu_text.append("Search books\n")
-    menu_text.append("5. ",style="magenta")
-    menu_text.append("Update a book\n")
-    menu_text.append("6. ",style="magenta")
-    menu_text.append("Delete a book\n")
-    menu_text.append("7. ",style="magenta")
-    menu_text.append("Return to main menu", style="bold magenta")
-    menu_panel = Panel.fit(menu_text, style="bold", border_style="bright_blue")
-    console.print(menu_panel)
-
-def print_search_books_menu():
-    console = Console()
-    menu_text = Text()
-    menu_text.append("1. ",style="magenta")
-    menu_text.append("Search by title\n")
-    menu_text.append("2. ",style="magenta")
-    menu_text.append("Search by author name\n")
-    menu_text.append("3. ",style="magenta")
-    menu_text.append("Return to books menu", style="bold magenta")
-    menu_panel = Panel.fit(menu_text, style="bold", border_style="bright_blue")
-    console.print(menu_panel)
+def search_books_menu():
+    message = "Do you want to search by title, author name or category?"
+    choices = [
+        {"name": "Title", "value": "1"},
+        {"name": "Author name", "value": "2"},
+        {"name": "Category", "value": "3"},
+        {"name": "Return to books menu", "value": "4"}
+    ]
+    return prompt_list_choice(choices, message)
