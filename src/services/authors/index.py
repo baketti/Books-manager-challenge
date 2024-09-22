@@ -16,12 +16,12 @@ def post_author(author_data):
         print_success("Author created successfully!")
         return author
     except Exception as e:
-        conn.roll
+        conn.rollback()
         print_error(f"An error occurred during author creation: {e}")
 
 def get_or_create_author(author_name):
     try:
-        author = get_author_by_authorName(author_name)
+        author = get_authors_by_authorName(author_name)
         conn = DbConnection.get_connection()
         if not author:
             return post_author({
@@ -44,28 +44,34 @@ def get_author_by_authorId(author_id):
         print_error(f"An error occurred during author retrieval: {e}")
         return None
 
-def get_author_by_authorName(author_name):
+def get_authors_by_authorName(author_name, is_search=False):
     conn = DbConnection.get_connection()
     try:
-        author = conn.query(Author).filter(Author.name == author_name).first()
-        return author
+        if not is_search:
+            author = conn.query(Author).filter(Author.name == author_name).first()
+            return author
+        authors = conn.query(Author).filter(Author.name.contains(author_name)).all()
+        return authors
     except Exception as e:
         print_error(f"An error occurred during author retrieval: {e}")
         return None
 
-def get_author_by_email(email):
+def get_authors_by_email(email, is_search=False):
     conn = DbConnection.get_connection()
     try:
-        author = conn.query(Author).filter(Author.email == email).first()
-        return author
+        if not is_search:
+            author = conn.query(Author).filter(Author.email == email).first()
+            return author
+        authors = conn.query(Author).filter(Author.email.contains(email)).all()
+        return authors
     except Exception as e:
         print_error(f"An error occurred while searching author by email: {e}")
         return None 
 
-def get_all_authors():
+def get_all_authors(limit=None):
     conn = DbConnection.get_connection()
     try:
-        authors = conn.query(Author).all()
+        authors = conn.query(Author).limit(limit).all()
         return authors
     except Exception as e:
         print_error(f"An error occurred during authors retrieval: {e}")

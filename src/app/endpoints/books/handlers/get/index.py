@@ -1,5 +1,7 @@
 from flask import request, jsonify
-from services.books.index import get_all_books, get_books_by_authorName, get_book_by_bookId
+from app.utils.index import get_limit_query_param
+from services.books.index import get_all_books, get_book_by_bookId, get_books_by_authorId
+from services.authors.index import get_authors_by_authorName
 from utils.index import sanitize_string
 from http import HTTPStatus
 
@@ -22,27 +24,28 @@ def get_book_by_id_handler(book_id):
         }), HTTPStatus.BAD_REQUEST
 
 def get_books_handler():
-    books = None
+    books = []
     try:
-        query_params = request.query_string.decode()
-
-        if not query_params: 
-            books = get_all_books()
+        author_name = get_authorName_query_param()
+        limit = get_limit_query_param()
+        if not author_name: 
+            books = [book.to_dict() for book in get_all_books(limit)]
         else:
-            author_name = get_authorName_query_param()
-            books = get_books_by_authorName(author_name)
-
-        if not books:
+            authors = get_authors_by_authorName(author_name, is_search=True)
+            for author in authors:
+                books.append({
+                    "author_name": author.name,
+                    "books": [book.to_dict() for book in get_books_by_authorId(author.id)]
+                })
+        if not len(books):
             return (
                 jsonify({
                     "message": "No books found"
                 }), HTTPStatus.NOT_FOUND)
-        
         return (
             jsonify({
-                "books":[book.to_dict() for book in books]
+                "list": books
             }), HTTPStatus.OK)
-    
     except Exception as e:
         return (
             jsonify({
