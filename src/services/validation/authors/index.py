@@ -23,7 +23,7 @@ def validate_author_birth_date(birth_date: str|date):
         birth_date = datetime.strptime(birth_date, "%Y/%m/%d")
         return birth_date
     except ValueError:
-        raise ValueError("date format must be YYYY/MM/DD")
+        raise ValueError("date must be valid with this format YYYY/MM/DD")
     except TypeError:
         raise ValueError("date must be a string")
 

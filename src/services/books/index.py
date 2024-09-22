@@ -1,6 +1,6 @@
 from db.models.Book.index import Book
 from db.models.DbConnection.index import DbConnection
-from services.authors.index import get_author_by_authorName, get_or_create_author
+from services.authors.index import get_authors_by_authorName, get_or_create_author
 from cli.console.index import print_success,print_error
 from utils.index import is_updated
 
@@ -39,10 +39,20 @@ def get_book_by_bookId(book_id):
 def get_books_by_authorName(author_name):
     conn = DbConnection.get_connection()
     try:
-        author = get_author_by_authorName(author_name)
+        author = get_authors_by_authorName(author_name)
         if not author:
             return None
         return author.books
+    except Exception as e:
+        conn.rollback()
+        print_error(f"An error occurred during books retrieval: {e}")
+        return None
+    
+def get_books_by_authorId(author_id):
+    conn = DbConnection.get_connection()
+    try:
+        books = conn.query(Book).filter(Book.author_id == author_id).all()
+        return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during books retrieval: {e}")
@@ -57,11 +67,21 @@ def get_books_by_title(title):
         conn.rollback()
         print_error(f"An error occurred during book retrieval: {e}")
         return None
-    
-def get_all_books():
+
+def get_books_by_category(category):
     conn = DbConnection.get_connection()
     try:
-        books = conn.query(Book).all()
+        books = conn.query(Book).filter(Book.category == category).all()
+        return books
+    except Exception as e:
+        conn.rollback()
+        print_error(f"An error occurred during book retrieval: {e}")
+        return None
+
+def get_all_books(limit=None):
+    conn = DbConnection.get_connection()
+    try:
+        books = conn.query(Book).limit(limit).all()
         return books
     except Exception as e:
         conn.rollback()
