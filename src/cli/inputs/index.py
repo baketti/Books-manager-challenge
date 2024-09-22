@@ -1,8 +1,11 @@
 from cli.console.index import print_error
+from InquirerPy import prompt
 
-def get_validated_input(prompt: str, validation_func, is_required: bool=False):
+def get_validated_input(_prompt: str, validation_func, is_required: bool=False):
     while True:
-        value = input(f"{prompt}: ")
+        question = {"type": "input", "message": _prompt, "name": "input"}
+        result = prompt(question)
+        value = result["input"]
         if not value and not is_required:
             return None
         try:
