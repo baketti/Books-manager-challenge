@@ -1,0 +1,5 @@
+SQLAlchemy==2.0.34
+Flask==3.0.3
+rich==13.8.1
+inquirerpy==0.3.4
+email_validator==2.2.0
