@@ -1,7 +1,7 @@
 from flask import request, jsonify, g
 from http import HTTPStatus
-from app.routes.authors.validations.index import validate_post_author_data
-from app.routes.books.validations.index import validate_post_book_data
+from app.endpoints.authors.validations.index import validate_post_author_data
+from app.endpoints.books.validations.index import validate_post_book_data
 
 def validate_post_request_body():
     if not request.path.startswith('/books') and not request.path.startswith('/authors'): 

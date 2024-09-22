@@ -1,8 +1,8 @@
 from flask import Blueprint
-from app.routes.authors.handlers.post.index import post_authors_handler
-from app.routes.authors.handlers.get.index import get_authors_handler, get_author_by_id_handler
-from app.routes.authors.handlers.put.index import put_author_by_id_handler
-from app.routes.authors.handlers.delete.index import delete_author_by_id_handler
+from app.endpoints.authors.handlers.post.index import post_authors_handler
+from app.endpoints.authors.handlers.get.index import get_authors_handler, get_author_by_id_handler
+from app.endpoints.authors.handlers.put.index import put_author_by_id_handler
+from app.endpoints.authors.handlers.delete.index import delete_author_by_id_handler
 from app.middleware.index import validate_post_request_body
 
 authors = Blueprint('authors', __name__)

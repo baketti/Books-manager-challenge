@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from flask import jsonify, request
-from app.routes.authors.validations.index import validate_put_author_data
+from app.endpoints.authors.validations.index import validate_put_author_data
 from services.authors.index import get_author_by_authorId, put_author_by_authorId
 
 def put_author_by_id_handler(author_id):

@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from flask import jsonify, request
-from app.routes.books.validations.index import validate_put_book_data
+from app.endpoints.books.validations.index import validate_put_book_data
 from services.books.index import get_book_by_bookId, put_book_by_bookId
 
 def put_book_by_id_handler(book_id):

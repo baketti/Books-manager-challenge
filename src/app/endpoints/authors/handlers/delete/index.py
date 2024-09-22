@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import jsonify
 from services.authors.index import get_author_by_authorId, delete_author_by_authorId
 from http import HTTPStatus
 
