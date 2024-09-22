@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-The Books Management Challenge is a CLI-based application designed to manage a library of books and authors. This project provides the ability to perform CRUD (Create, Read, Update, Delete) operations on both books and authors directly from the command line interface (CLI). The project ensures smooth data management and interaction between the CLI and a SQLite database.
+The Books Management Challenge is an application designed to manage a library of books and authors. This project provides the ability to perform CRUD (Create, Read, Update, Delete) operations on both books and authors either directly from the command line interface (CLI) or through an exposed API with HTTP requests. The project ensures smooth data management and interaction between the CLI, API, and a SQLite database.
 
 ## Technologies Used
 
@@ -73,21 +73,19 @@ The project is structured as follows:
   - Validation Service: Provides data validation functionalities.
 
 - app/: Contains the API logic, enabling the application to serve a local API for testing the endpoints.
-- app/: Contains the API logic, enabling the application to serve a local API for testing the endpoints.
   Inside the `app` folder, there are two subfolders:
 - `endpoints`:
+
   - `books`
   - `authors`
     which contain all the endpoints for each route.
     These two folders are further divided into `handlers`, where the functions called by the endpoints are located, and `validations`, which contains post and put data validation functions.
     `handlers` functions handle the logic when a request reaches a specific endpoint.
-
-Inside the `handlers` folder, the handlers are divided into four subfolders:
-
-- `get`
-- `post`
-- `put`
-- `delete`
+    Inside the `handlers` folder, the handlers are divided into four subfolders:
+    - `get`
+    - `post`
+    - `put`
+    - `delete`
 
 - `middleware`: Contains the middleware.
 
