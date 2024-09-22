@@ -17,7 +17,6 @@ def post_books():
 
 @books.route('/books', methods=['GET'])
 def get_books():
-    print("Get books")
     return get_books_handler()
 
 @books.route('/books/<book_id>', methods=['GET'])
