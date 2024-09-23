@@ -34,7 +34,7 @@ def get_books_handler():
         else:
             authors = get_authors_by_authorName(author_name, is_search=True)
             for author in authors:
-                book_list = get_books_by_authorId(author.id)
+                book_list = get_books_by_authorId(author.id, limit)
                 books.append({
                     "author_name": author.name,
                     "books": convert_to_dict_list(book_list)
