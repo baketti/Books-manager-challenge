@@ -89,6 +89,7 @@ The project is structured as follows:
 
 - `middleware`: Contains the middleware.
 
+- utils: Contains utility functions that are used throughout the application in more files.
 - main.py: The main entry point for executing the CLI application.
 
 In general, all directories are divided into subdirectories `books` and `authors` to separate everything related to books and authors. This structure is followed throughout the project, ensuring that each directory where operations for books and authors are needed is divided into `books` and `authors` subdirectories, containing all relevant files and functions.
