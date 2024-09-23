@@ -1,6 +1,8 @@
 from utils.index import convert_to_number, sanitize_string
 
 def validate_title(_title: str):
+    if _title and type(_title) != str:
+        raise ValueError("Book title must be a string")
     title = sanitize_string(_title)
     if not title:
         raise ValueError("title is required")
@@ -32,6 +34,8 @@ def validate_price(price: str):
     
 def validate_publisher(_publisher: str):
     if not _publisher or not _publisher.strip(): return None
+    if type(_publisher) != str:
+        raise ValueError("Book publisher must be a string")
     publisher = sanitize_string(_publisher)
     if len(publisher) > 255:
         raise ValueError("Publisher must be at most 255 characters long")

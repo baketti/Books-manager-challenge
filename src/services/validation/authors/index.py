@@ -3,9 +3,11 @@ from email_validator import validate_email, EmailNotValidError
 from utils.index import sanitize_string
 
 def validate_author_name(_name: str):
-    name = sanitize_string(_name)
-    if not name:
+    if not _name:
         raise ValueError("Author name is required")
+    elif type(_name) != str:
+        raise ValueError("Author name must be a string")
+    name = sanitize_string(_name)
     if len(name) < 3:
         raise ValueError("Author name must be at least 3 characters long")
     elif len(name) > 32:
