@@ -41,5 +41,5 @@ def get_authors_handler():
     except Exception as e:
         return (
             jsonify({
-                "message": f"An Internal Error occurred during books retrieval: {e}"
+                "message": f"An Internal Error occurred during authors retrieval: {e}"
             }),HTTPStatus.INTERNAL_SERVER_ERROR)
