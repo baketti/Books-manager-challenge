@@ -11,7 +11,8 @@ def post_authors_handler():
             return handle_Integrity_Error("An author with the same name or email already exists")
         return (
             jsonify({
-                "author":author.to_dict()
+                "author":author.to_dict(),
+                "message": "Author created successfully"
             }), HTTPStatus.CREATED)
     except Exception as e:
         return (

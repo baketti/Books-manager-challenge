@@ -10,7 +10,8 @@ def post_books_handler():
         if not book:
             return handle_Integrity_Error("A book with the same title already exists")
         return (jsonify({
-            "book": book.to_dict()
+            "book": book.to_dict(),
+            "message": "Book created successfully"
         }), HTTPStatus.CREATED)
     except Exception as e:
         return (
