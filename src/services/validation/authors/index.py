@@ -1,4 +1,5 @@
 from datetime import datetime, date
+import re
 from email_validator import validate_email, EmailNotValidError
 from utils.index import sanitize_string
 
@@ -8,7 +9,7 @@ def validate_author_name(_name: str):
     elif type(_name) != str:
         # works only for apis
         raise ValueError("Author name must be a string")
-    elif not _name.isalpha():
+    elif re.search(r'\d', _name):
         raise ValueError("Author name must contain only alphabetic characters")
     name = sanitize_string(_name)
     if len(name) < 3:

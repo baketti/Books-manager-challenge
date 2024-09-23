@@ -1,3 +1,4 @@
+import re
 from utils.index import convert_to_number, sanitize_string
 
 def validate_title(_title: str):
@@ -15,6 +16,7 @@ def validate_pages(pages: str):
         if not pages: return None
         if type(pages) == str:
             pages = convert_to_number(pages,'pages',int)
+            if not pages: return None
         if pages < 1:
             raise ValueError("pages must be a at least 1")
         elif pages and pages > 10000:
@@ -28,6 +30,7 @@ def validate_price(price: str):
         if not price: return None
         if type(price) == str:
             price = convert_to_number(price,'price',float)
+            if not price: return None
         if price < 0:
             raise ValueError("price must be at least 0.01$")
         elif price > 10000.00:
@@ -41,7 +44,7 @@ def validate_publisher(_publisher: str):
     if type(_publisher) != str:
         # works only for apis
         raise ValueError("Book publisher must be a string")
-    if not _publisher.isalpha():
+    if re.search(r'\d', _publisher):
         raise ValueError("Book publisher must contain only alphabetic characters")
     publisher = sanitize_string(_publisher)
     if len(publisher) > 255:
