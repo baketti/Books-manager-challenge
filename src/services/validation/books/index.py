@@ -39,7 +39,10 @@ def validate_price(price: str):
 def validate_publisher(_publisher: str):
     if not _publisher: return None
     if type(_publisher) != str:
+        # works only for apis
         raise ValueError("Book publisher must be a string")
+    if not _publisher.isalpha():
+        raise ValueError("Book publisher must contain only alphabetic characters")
     publisher = sanitize_string(_publisher)
     if len(publisher) > 255:
         raise ValueError("Publisher must be at most 255 characters long")
@@ -47,6 +50,7 @@ def validate_publisher(_publisher: str):
 
 def validate_category(category: str):
     if category and type(category) != str:
+        # works only for apis
         raise ValueError("Book category must be a string")
     if not category or not category.strip(): return None
     categories = ["Classic", "Drama", "Fantasy", "IT", "Thriller", "Miscellaneous"]
