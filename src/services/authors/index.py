@@ -106,7 +106,6 @@ def put_author_by_authorId(author_id, updated_data):
 def delete_author_by_authorId(author_id):
     try:
         author = get_author_by_authorId(author_id)
-        print(author.books)
         conn = DbConnection.get_connection()
         if author.books:
             print_warning("Cannot delete author with associated books")
