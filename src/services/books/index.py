@@ -3,6 +3,7 @@ from db.models.DbConnection.index import DbConnection
 from services.authors.index import get_authors_by_authorName, get_or_create_author
 from cli.console.index import print_success,print_error
 from utils.index import is_updated
+from sqlalchemy.exc import IntegrityError
 
 def post_book(book_data):
     conn = DbConnection.get_connection()
@@ -20,10 +21,11 @@ def post_book(book_data):
         conn.commit()
         print_success("Book created successfully!")
         return book
+    except IntegrityError as e:
+        conn.rollback()
+        field = e.orig.args[0].split(".")[1]
+        print_error(f"A book with the {field} '{book_data[f'{field}']}' already exists")
     except Exception as e:
-        if str(e).startswith("(sqlite3.IntegrityError) UNIQUE constraint failed: books.title"):
-            print_error(f"Book with title '{book_data['title']}' already exists!")
-            raise Exception(f"Book with title '{book_data['title']}' already exists!")
         conn.rollback()
         print_error(f"An error occurred during book creation: {e}")
         raise Exception(e)
@@ -107,6 +109,11 @@ def put_book_by_bookId(book, updated_data):
         conn.commit()
         print_success("Book updated successfully!")
         return book
+    except IntegrityError as e:
+        conn.rollback()
+        field = e.orig.args[0].split(".")[1]
+        msg = f"A book with the {field} '{updated_data[f'{field}']}' already exists"
+        print_error(msg)
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during book update: {e}")

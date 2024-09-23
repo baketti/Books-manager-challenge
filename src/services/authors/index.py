@@ -2,6 +2,7 @@ from db.models.Author.index import Author
 from cli.console.index import print_success, print_error, print_warning
 from db.models.DbConnection.index import DbConnection
 from utils.index import is_updated
+from sqlalchemy.exc import IntegrityError
 
 def post_author(author_data):
     conn = DbConnection.get_connection()
@@ -15,10 +16,12 @@ def post_author(author_data):
         conn.commit()
         print_success("Author created successfully!")
         return author
+    except IntegrityError as e:
+        conn.rollback()
+        field = e.orig.args[0].split(".")[1]
+        print_error(f"An author with the {field} '{author_data[f'{field}']}' already exists")
+        #raise e
     except Exception as e:
-        if str(e).startswith("(sqlite3.IntegrityError) UNIQUE constraint failed: authors.name"):
-            print_error(f"Author with name '{author_data['name']}' already exists!")
-            raise Exception(f"Author with name '{author_data['name']}' already exists!")
         conn.rollback()
         print_error(f"An error occurred during author creation: {e}")
         raise Exception(e)
@@ -98,6 +101,11 @@ def put_author_by_authorId(author_id, updated_data):
         conn.commit()
         print_success("Author updated successfully!")
         return author
+    except IntegrityError as e:
+        conn.rollback()
+        field = e.orig.args[0].split(".")[1]
+        msg = f"An author with the {field} '{updated_data[f'{field}']}' already exists"
+        print_error(msg)
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during author update: {e}")
