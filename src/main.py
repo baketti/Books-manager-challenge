@@ -8,7 +8,7 @@ from db.models.DbConnection.index import DbConnection
 def main():
     try:
         DbConnection()
-        need_to_import_data = Confirm.ask("\nDo you want to import data from csv?", default=False)
+        need_to_import_data = Confirm.ask("\nDo you want to import data from csv?", default=True)
         if need_to_import_data:
             import_data_from_csv()
         choice = display_initial_CLI_menu()   
@@ -18,7 +18,7 @@ def main():
         else:
             # API app
             print_API_start_app()
-            app.run(debug=True)
+            app.run()
     except KeyboardInterrupt:
         print_exit_message()
         exit(0)  
