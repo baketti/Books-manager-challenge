@@ -184,7 +184,45 @@ The application exposes two main groups of endpoints: books and authors.
 
   - To retrieve all books: GET `/books`.
   - To retrieve a limited number of books: GET `/books?limit=<number>`.
+    Response:
+    `json
+{
+    "list": [
+        {
+            "author_id": <author_id>,
+            "category": "<category>",
+            "id": <book_id>,
+            "pages": <number_of_pages>,
+            "price": <price>,
+            "publisher": "<publisher>",
+            "title": "<title>"
+        }
+    ]
+}
+`
   - To search for books by a specific author: GET `/books?authorName=<authorName>`
+    If you search by author name, you can access returned books by `list` property, which contains an array. This consists of objects containing an `author_name` property with the author's name and a `books` property that contains all the books by that author. For Example:
+    `json
+{
+    "list": [
+        {
+          "author_name": "<author_name>"
+          "books": [
+              {
+                  "author_id": <author_id>,
+                  "category": "<category>",
+                  "id": <book_id>,
+                  "pages": <number_of_pages>,
+                  "price": <price>,
+                  "publisher": "<publisher>",
+                  "title": "<title>"
+              }
+          ]
+        }
+    ]
+}
+`
+
     The endpoint is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
 
 - GET `/books/<book_id>`: Returns the details of a specific book based on its book_id.
