@@ -203,6 +203,8 @@ The application exposes two main groups of endpoints: books and authors.
 ```
 
 - To search for books by a specific author: GET `/books?authorName=<authorName>`
+
+  This is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
   If you search by author name, you can access returned books by `list` property, which contains an array. This consists of objects containing an `author_name` property with the author's name and a `books` property that contains all the books by that author. For Example:
 
 ```js
@@ -225,8 +227,6 @@ The application exposes two main groups of endpoints: books and authors.
     ]
 }
 ```
-
-    The endpoint is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
 
 - GET `/books/<book_id>`: Returns the details of a specific book based on its book_id.
 - PUT `/books/<book_id>`: Updates a specific book identified by its book_id.
