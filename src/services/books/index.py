@@ -56,9 +56,10 @@ def get_books_by_authorName(author_name):
 def get_books_by_authorId(author_id, limit=None):
     conn = DbConnection.get_connection()
     try:
-        books = conn.query(Book).filter(Book.author_id == author_id).all()
+        books = conn.query(Book).filter(
+            Book.author_id == author_id).limit(limit).all()
         if not books: return None
-        return books[:limit] if limit is not None else books
+        return books
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during books retrieval: {e}")
