@@ -2,6 +2,7 @@ from flask import jsonify
 from services.authors.index import get_all_authors, get_author_by_authorId
 from http import HTTPStatus
 from app.utils.index import get_limit_query_param
+from utils.index import convert_to_dict_list
 
 def get_author_by_id_handler(book_id):
     try:
@@ -22,7 +23,6 @@ def get_author_by_id_handler(book_id):
             "message": "Invalid author ID"
         }), HTTPStatus.BAD_REQUEST
 
-# TODO implement search by email (?)
 def get_authors_handler():
     try: 
         limit = get_limit_query_param()
@@ -35,7 +35,7 @@ def get_authors_handler():
                 HTTPStatus.NOT_FOUND)
         return (
             jsonify({
-                "authors":[author.to_dict() for author in authors]
+                "authors": convert_to_dict_list(authors)
             }), HTTPStatus.OK)
     
     except Exception as e:
