@@ -23,8 +23,8 @@ def validate_post_book_data(book_data):
 def validate_put_book_data(book_to_update, book_data):
     try:
         title = validate_title(book_data.get('title', book_to_update["title"]))
-        pages = validate_pages(book_data.get('pages', str(book_to_update["pages"])))
-        price = validate_price(book_data.get('price', str(book_to_update["price"])))
+        pages = validate_pages(book_data.get('pages', book_to_update["pages"]))
+        price = validate_price(book_data.get('price', book_to_update["price"]))
         publisher = validate_publisher(book_data.get('publisher', book_to_update["publisher"]))
         category = validate_category(book_data.get('category', book_to_update["category"]))
         return {
