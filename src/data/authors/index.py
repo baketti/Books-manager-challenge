@@ -19,12 +19,15 @@ def read_authors_csv():
             })
             return data
     except FileNotFoundError as e:
-        print_error(f"Error during csv file reading: {e}")
-        return None
+        err_msg = f"Error during csv file reading: {e}"
+        print_error(err_msg)
+        raise FileNotFoundError(err_msg)
     
 def create_authors():
-    authors_data = read_authors_csv()
-    if authors_data:
+    try:
+        authors_data = read_authors_csv()
         for author_data in authors_data:
             post_author(author_data)
         print_success(f"Imported {len(authors_data)} authors from csv!\n")
+    except Exception as e:
+        print_error(e)

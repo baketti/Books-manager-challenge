@@ -21,12 +21,16 @@ def read_books_csv():
                 })
             return data
     except FileNotFoundError as e:
-        print_error(f"Error during books csv file reading: {e}")
-        return None
+        err_msg = f"Error during books csv file reading: {e}"
+        print_error(err_msg)
+        raise FileNotFoundError(err_msg)
 
 def create_books():
-    books_data = read_books_csv()
-    if books_data:
+    try:
+        books_data = read_books_csv()
         for book_data in books_data:
             post_book(book_data)
         print_success(f"Imported {len(books_data)} books from csv!\n")
+    except Exception as e:
+        print_error(e)
+    
