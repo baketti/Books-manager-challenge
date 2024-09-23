@@ -266,4 +266,4 @@ Contributions are welcome! To contribute to this project:
 
 While no automated testing suite is currently implemented, manual testing can be performed by running the application, testing CRUD operations, and interacting with the API.
 
-###### Thanks for reading!
+#### Thanks for reading!
