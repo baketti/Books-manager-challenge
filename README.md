@@ -185,7 +185,8 @@ The application exposes two main groups of endpoints: books and authors.
   - To retrieve all books: GET `/books`.
   - To retrieve a limited number of books: GET `/books?limit=<number>`.
     Response:
-    `json
+
+```js
 {
     "list": [
         {
@@ -199,10 +200,12 @@ The application exposes two main groups of endpoints: books and authors.
         }
     ]
 }
-`
-  - To search for books by a specific author: GET `/books?authorName=<authorName>`
-    If you search by author name, you can access returned books by `list` property, which contains an array. This consists of objects containing an `author_name` property with the author's name and a `books` property that contains all the books by that author. For Example:
-    `json
+```
+
+- To search for books by a specific author: GET `/books?authorName=<authorName>`
+  If you search by author name, you can access returned books by `list` property, which contains an array. This consists of objects containing an `author_name` property with the author's name and a `books` property that contains all the books by that author. For Example:
+
+```js
 {
     "list": [
         {
@@ -221,7 +224,7 @@ The application exposes two main groups of endpoints: books and authors.
         }
     ]
 }
-`
+```
 
     The endpoint is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
 
