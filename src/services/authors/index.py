@@ -20,7 +20,6 @@ def post_author(author_data):
         conn.rollback()
         field = e.orig.args[0].split(".")[1]
         print_error(f"An author with the {field} '{author_data[f'{field}']}' already exists")
-        #raise e
     except Exception as e:
         conn.rollback()
         print_error(f"An error occurred during author creation: {e}")
