@@ -179,7 +179,9 @@ The application exposes two main groups of endpoints: books and authors.
 `/books`: Supports the following functionalities:
 
 - POST `/books`: Allows you to add a new book to the database.
-- GET `/books`: If no query parameters are provided, it returns all books in the database. You can also specify a limit query parameter to return only a specified number of books from the entire collection. Additionally, you can search for books by the author's name using the authorName query parameter.
+- GET `/books`:
+  This is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
+  If no query parameters are provided, it returns all books in the database. You can also specify a limit query parameter to return only a specified number of books from the entire collection. Additionally, you can search for books by the author's name using the authorName query parameter.
   Example:
 
   - To retrieve all books: GET `/books`.
@@ -204,7 +206,6 @@ The application exposes two main groups of endpoints: books and authors.
 
 - To search for books by a specific author: GET `/books?authorName=<authorName>`
 
-  This is designed to handle query string parameters, allowing you to limit and filter results based on the author's name.
   If you search by author name, you can access returned books by `list` property, which contains an array. This consists of objects containing an `author_name` property with the author's name and a `books` property that contains all the books by that author. For Example:
 
 ```js
